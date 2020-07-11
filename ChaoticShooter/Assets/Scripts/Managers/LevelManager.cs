@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject playerPref;
     [SerializeField] private GameObject trianglePref;
     [SerializeField] private GameObject squarePref;
+    [SerializeField] private GameObject circlePref;
 
     [SerializeField] private float minPlayerSwitchTime = 4f;
     [SerializeField] private float maxPlayerSwitchTime = 10f;
@@ -117,6 +118,7 @@ public class LevelManager : MonoBehaviour
                 pref = squarePref;
                 break;
             case PlayerBehaviourType.Circle:
+                pref = circlePref;
                 break;
             case PlayerBehaviourType.Plus:
                 break;
@@ -134,6 +136,7 @@ public class LevelManager : MonoBehaviour
                 selectedPlayerBehaviour.GetComponentInChildren<SquarePlayer>().InitializeBehaviour();
                 break;
             case PlayerBehaviourType.Circle:
+                selectedPlayerBehaviour.GetComponentInChildren<CirclePlayer>().InitializeBehaviour();
                 break;
             case PlayerBehaviourType.Plus:
                 break;

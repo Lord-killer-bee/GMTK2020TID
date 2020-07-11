@@ -845,6 +845,8 @@ MonoBehaviour:
     type: 3}
   squarePref: {fileID: 2724302509682445619, guid: 75c24f036c7109f418ac57f4af556cfb,
     type: 3}
+  circlePref: {fileID: 9053912154358594343, guid: ba41a77f04692da4899b41cd652a27e1,
+    type: 3}
   minPlayerSwitchTime: 8
   maxPlayerSwitchTime: 10
 --- !u!1 &1361363035
