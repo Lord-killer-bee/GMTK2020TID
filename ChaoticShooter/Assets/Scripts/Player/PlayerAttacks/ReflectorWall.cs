@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,6 +27,8 @@ public class ReflectorWall : MonoBehaviour
                 var angle = Vector3.Angle(-transform.forward, normal);
 
                 collision.gameObject.GetComponentInParent<EnemyBullet>().ReflectBullet(normal);
+
+                GameEventManager.Instance.TriggerAsyncEvent(new ShakeCameraEvent());
             }
         }
     }

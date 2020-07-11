@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +25,9 @@ public class Enemy : MonoBehaviour
     {
         currentHP -= damage;
 
-        if(currentHP <= 0)
+        GameEventManager.Instance.TriggerAsyncEvent(new ShakeCameraEvent());
+
+        if (currentHP <= 0)
         {
             Destroy(gameObject);
             return true;
@@ -33,5 +36,6 @@ public class Enemy : MonoBehaviour
         {
             return false;
         }
+
     }
 }

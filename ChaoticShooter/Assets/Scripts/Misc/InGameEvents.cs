@@ -52,3 +52,8 @@ public class GameStateCompletedEvent : GameEvent
         this.gameState = gameState;
     }
 }
+
+public class ShakeCameraEvent : GameEvent
+{
+
+}

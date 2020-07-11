@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -100,6 +101,8 @@ public class TrianglePlayer : MonoBehaviour
         laser.transform.forward = firepoints[index].forward;
         lasersList.Add(laser);
         laser.GetComponentInChildren<LaserBullet>().InitializeBullet(laserLength, laserDamage);
+
+        //GameEventManager.Instance.TriggerAsyncEvent(new ShakeCameraEvent());
     }
 
     private void RandomizeFirepoints()

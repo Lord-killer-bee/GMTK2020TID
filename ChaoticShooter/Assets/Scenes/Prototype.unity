@@ -609,6 +609,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camHeight: 10
+  shakeAmount: 0.1
+  decreaseFactor: 1
 --- !u!1 &596935660
 GameObject:
   m_ObjectHideFlags: 0

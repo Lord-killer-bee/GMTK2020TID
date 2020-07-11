@@ -12,14 +12,25 @@ public class CameraFollow : MonoBehaviour
 
     Vector3 targetPosition;
 
+    private float shakeDuration = 0f;
+
+    // Amplitude of the shake. A larger value shakes the camera harder.
+    [SerializeField] private float shakeAmount = 0.7f;
+    [SerializeField] private float decreaseFactor = 1.0f;
+
+    Vector3 originalPos;
+    bool shakeTriggered = false;
+
     private void OnEnable()
     {
         GameEventManager.Instance.AddListener<PlayerCreatedEvent>(InitializeCamera);
+        GameEventManager.Instance.AddListener<ShakeCameraEvent>(OnShakeTriggered);
     }
 
     private void OnDisable()
     {
         GameEventManager.Instance.RemoveListener<PlayerCreatedEvent>(InitializeCamera);
+        GameEventManager.Instance.RemoveListener<ShakeCameraEvent>(OnShakeTriggered);
     }
 
     private void InitializeCamera(PlayerCreatedEvent e)
@@ -30,10 +41,7 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!playerTransform)
-            return;
-
-        if (playerMoveStarted)
+        if (playerMoveStarted && playerTransform)
         {
             targetPosition = new Vector3(playerTransform.position.x, camHeight, playerTransform.position.z);
 
@@ -51,5 +59,30 @@ public class CameraFollow : MonoBehaviour
 
             transform.position = targetPosition;
         }
+
+        if (shakeTriggered)
+        {
+            if (shakeDuration > 0)
+            {
+                transform.localPosition = originalPos + UnityEngine.Random.insideUnitSphere * shakeAmount;
+
+                shakeDuration -= Time.deltaTime * decreaseFactor;
+            }
+            else
+            {
+                shakeDuration = 0f;
+                transform.localPosition = originalPos;
+                shakeTriggered = false;
+            }
+        }
+
+    }
+
+    private void OnShakeTriggered(ShakeCameraEvent e)
+    {
+        shakeDuration = 0.3f;
+        originalPos = transform.localPosition;
+        shakeTriggered = true;
+        Debug.Log("Camera shook");
     }
 }
