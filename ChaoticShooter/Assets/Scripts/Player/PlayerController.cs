@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Core;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rotationSpeed = 15;
 
     Vector3 moveDirection = Vector3.zero;
+
+    Vector3 playerRotation = Vector3.zero;
+    private Vector3 _Direction = Vector3.right;
+
     Vector3 targetPosition = Vector3.zero;
 
     private float playerHP;
@@ -30,6 +35,12 @@ public class PlayerController : MonoBehaviour
         moveDirection.x = Input.GetAxisRaw("Horizontal"); 
         moveDirection.z = Input.GetAxisRaw("Vertical");
 
+        //float rh = Input.GetAxis("Right_Horizontal"); 
+       // float rv= Input.GetAxis("Right_Vertical");
+
+        float rh = Input.GetAxis("Horizontal"); 
+        float rv= Input.GetAxis("Vertical");
+
         targetPosition = moveDirection * moveSpeed * Time.deltaTime;
 
         mouseInput = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
@@ -45,8 +56,16 @@ public class PlayerController : MonoBehaviour
 
         if (Vector3.Angle(transform.forward, (mouseInput - transform.position).normalized) >= 1)
         {
-            transform.Rotate(Vector3.up, rotationDirection * rotationSpeed * Time.deltaTime, Space.World);
+            //transform.Rotate(Vector3.up, rotationDirection * rotationSpeed * Time.deltaTime, Space.World);
         }
+        //transform.LookAt(mouseInput);
+
+        if(Mathf.Abs(rh) > 0.15f || Mathf.Abs(rv) > 0.15f)
+		{
+            float heading = Mathf.Atan2(rh,rv);
+
+            transform.rotation=Quaternion.Euler(0f,heading*Mathf.Rad2Deg,0f);
+		}
 
         if (targetPosition.x + transform.position.x - playerWidth < LevelManager.minMarginX)
             targetPosition.x = 0;
@@ -79,7 +98,15 @@ public class PlayerController : MonoBehaviour
                 GameEventManager.Instance.TriggerSyncEvent(new PlayerDestroyedEvent(transform));
 
                 Destroy(gameObject);
+
+                restartCurrentScene();           
             }
         }
     }
+
+    public void restartCurrentScene()
+     {
+         int scene = SceneManager.GetActiveScene().buildIndex;
+         SceneManager.LoadScene(scene, LoadSceneMode.Single);
+     }
 }

@@ -19,7 +19,7 @@
             "bindings": [
                 {
                     "name": "",
-                    "path": "<Joystick>/trigger",
+                    "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
