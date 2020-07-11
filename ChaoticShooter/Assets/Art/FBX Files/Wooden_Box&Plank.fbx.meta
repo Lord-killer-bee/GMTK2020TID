@@ -3,21 +3,14 @@ guid: 3248591537ae3e74cb32835815d3fcbe
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: pCube7
-    100002: pCube8
-    100004: //RootNode
-    400000: pCube7
-    400002: pCube8
-    400004: //RootNode
-    2100000: lambert2
-    2100002: lambert3
-    2100004: blinn8
-    2300000: pCube7
-    2300002: pCube8
-    3300000: pCube7
-    3300002: pCube8
-    4300000: pCube7
-    4300002: pCube8
+    100000: //RootNode
+    400000: //RootNode
+    2100000: blinn8
+    2100002: lambert2
+    2100004: lambert3
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: pCube12
   externalObjects: {}
   materials:
     importMaterials: 1
