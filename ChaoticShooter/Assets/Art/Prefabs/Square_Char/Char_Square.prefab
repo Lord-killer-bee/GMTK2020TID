@@ -57,9 +57,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100002, guid: 85c7c3bdd885daf43b43b143dfd4298f, type: 3}
+  - {fileID: 2100000, guid: 7dcfc4a1f6cd8054d97e26cd8d9b1942, type: 2}
   - {fileID: 2100004, guid: 85c7c3bdd885daf43b43b143dfd4298f, type: 3}
-  - {fileID: 2100006, guid: 85c7c3bdd885daf43b43b143dfd4298f, type: 3}
+  - {fileID: 2100000, guid: f27abf6ae134c8048bc2ae6449e12349, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -136,8 +136,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 85c7c3bdd885daf43b43b143dfd4298f, type: 3}
-  - {fileID: 2100002, guid: 85c7c3bdd885daf43b43b143dfd4298f, type: 3}
+  - {fileID: 2100000, guid: f27abf6ae134c8048bc2ae6449e12349, type: 2}
+  - {fileID: 2100000, guid: 7dcfc4a1f6cd8054d97e26cd8d9b1942, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -167,7 +167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4559453509812394376}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Char_Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
