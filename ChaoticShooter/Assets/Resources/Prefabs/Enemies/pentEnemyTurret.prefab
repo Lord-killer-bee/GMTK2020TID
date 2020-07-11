@@ -94,7 +94,7 @@ MonoBehaviour:
   bulletChargeTime: 1
   windupTime: 1
   rotationSpeed: 1
-  bulletSpeed: 2
+  bulletSpeed: 3
   bulletDamage: 1
   bulletPref: {fileID: 6547234415675224511, guid: 651204ae30aa9674ea69229b4193f61a,
     type: 3}

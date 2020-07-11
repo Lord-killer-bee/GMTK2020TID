@@ -288,10 +288,10 @@ MonoBehaviour:
   - {fileID: 3471958441343081163}
   - {fileID: 9131974238360616241}
   - {fileID: 8306221141846323826}
-  laserStayTime: 2
+  laserStayTime: 1
   reloadTime: 0.5
   laserDamage: 1
-  laserLength: 3
+  laserLength: 5
   minFirepointSwitchTime: 1.5
   maxFirepointSwitchTime: 3
   activeFirepoints: 1
