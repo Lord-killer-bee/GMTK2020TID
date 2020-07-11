@@ -12,11 +12,19 @@ public class TrianglePlayer : MonoBehaviour
     [SerializeField] private float laserDamage = 1f;
     [SerializeField] private float laserLength = 1f;
 
+    [SerializeField] private float minFirepointSwitchTime = 1.5f;
+    [SerializeField] private float maxFirepointSwitchTime = 3f;
+    [SerializeField] private int activeFirepoints = 1;
+
+
     private PlayerBehaviourType behaviourType;
     private bool behaviourInitialized = false;
     private bool[] firepointsStatus;
     private DateTime firedTime, waitTime;
     private bool fireStarted, waitStarted;
+
+    private DateTime switchTime;
+    private float currentSwitchTime;
 
     private List<GameObject> lasersList = new List<GameObject>();
 
@@ -26,7 +34,7 @@ public class TrianglePlayer : MonoBehaviour
         behaviourInitialized = true;
 
         firepointsStatus = new bool[firepoints.Length];
-        for (int i = 0; i < firepoints.Length; i++)
+        for (int i = 0; i < activeFirepoints; i++)
         {
             firepointsStatus[i] = true;
         }
@@ -34,6 +42,9 @@ public class TrianglePlayer : MonoBehaviour
         waitTime = DateTime.Now;
         waitStarted = true;
         fireStarted = false;
+
+        currentSwitchTime = UnityEngine.Random.Range(minFirepointSwitchTime, maxFirepointSwitchTime);
+        switchTime = DateTime.Now;
     }
 
     private void Update()
@@ -73,6 +84,11 @@ public class TrianglePlayer : MonoBehaviour
                     lasersList.Clear();
                 }
             }
+
+            if ((DateTime.Now - switchTime).TotalMilliseconds >= currentSwitchTime * 1000)
+            {
+                RandomizeFirepoints();
+            }
         }
     }
 
@@ -84,5 +100,32 @@ public class TrianglePlayer : MonoBehaviour
         laser.transform.forward = firepoints[index].forward;
         lasersList.Add(laser);
         laser.GetComponentInChildren<LaserBullet>().InitializeBullet(laserLength, laserDamage);
+    }
+
+    private void RandomizeFirepoints()
+    {
+        firepointsStatus = new bool[firepoints.Length];
+
+        for (int i = activeFirepoints - 1; i >= 0; i--)
+        {
+            firepointsStatus[i] = true;
+        }
+
+        ShuffleStatuses();
+
+        currentSwitchTime = UnityEngine.Random.Range(minFirepointSwitchTime, maxFirepointSwitchTime);
+        switchTime = DateTime.Now;
+    }
+
+
+    private void ShuffleStatuses()
+    {
+        for (int i = 0; i < firepointsStatus.Length; i++)
+        {
+            var temp = firepointsStatus[i];
+            int randomIndex = UnityEngine.Random.Range(i, firepointsStatus.Length);
+            firepointsStatus[i] = firepointsStatus[randomIndex];
+            firepointsStatus[randomIndex] = temp;
+        }
     }
 }

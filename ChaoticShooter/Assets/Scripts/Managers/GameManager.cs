@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
                 SetState(GameState.RoulettePlayerWheel);
                 break;
             case GameState.RoulettePlayerWheel:
+                SetState(GameState.Gameplay);
                 break;
             case GameState.EnemiesGeneration:
                 break;

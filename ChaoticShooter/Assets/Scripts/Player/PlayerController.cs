@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         GameEventManager.Instance.TriggerSyncEvent(new PlayerCreatedEvent(transform));
-        GetComponent<TrianglePlayer>().InitializeBehaviour();
         playerHP = maxPlayerHP;
     }
 

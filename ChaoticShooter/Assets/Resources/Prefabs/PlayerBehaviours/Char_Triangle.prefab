@@ -246,7 +246,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9106472014599088682}
-  - component: {fileID: 7736868469553308470}
   - component: {fileID: 814124295373293341}
   m_Layer: 0
   m_Name: Char_Triangle
@@ -271,25 +270,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &7736868469553308470
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5613032989176652361}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8175d410cdc1c824fb756e6236b84fd2, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &814124295373293341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,7 +291,10 @@ MonoBehaviour:
   laserStayTime: 2
   reloadTime: 0.5
   laserDamage: 1
-  laserLength: 1
+  laserLength: 3
+  minFirepointSwitchTime: 1.5
+  maxFirepointSwitchTime: 3
+  activeFirepoints: 1
 --- !u!1 &6278576026450754508
 GameObject:
   m_ObjectHideFlags: 0

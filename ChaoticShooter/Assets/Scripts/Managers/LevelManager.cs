@@ -14,6 +14,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject trianglePref;
     [SerializeField] private GameObject squarePref;
 
+    [SerializeField] private float minPlayerSwitchTime = 4f;
+    [SerializeField] private float maxPlayerSwitchTime = 10f;
+
     public static float minMarginX = -5;
     public static float maxMarginX = 5;
     public static float minMarginZ = -5;
@@ -28,6 +31,10 @@ public class LevelManager : MonoBehaviour
     private int currentPlayerIndex = 0;
     private GameObject selectedPlayerBehaviour;
     private GameObject player;
+    private float currentSwitchTime;
+    private DateTime switchTime;
+
+    private GameState currentState;
 
     private void OnEnable()
     {
@@ -41,6 +48,8 @@ public class LevelManager : MonoBehaviour
 
     private void SetupLevel(GameStateSetEvent e)
     {
+        currentState = e.gameState;
+
         if (e.gameState == GameState.LevelGeneration)
         {
             minMarginX = -rowCount / 2;
@@ -53,16 +62,31 @@ public class LevelManager : MonoBehaviour
             minCamMarginZ = (-columnCount / 2) + camMarginOffset;
             maxCamMarginZ = -minMarginZ - camMarginOffset;
 
-            GameEventManager.Instance.TriggerSyncEvent(new GameStateCompletedEvent(GameState.LevelGeneration));
-
             player = Instantiate(playerPref, Vector3.zero, Quaternion.identity);
 
             currentPlayerIndex = 0;
             ShufflePlayers();
+
+            GameEventManager.Instance.TriggerSyncEvent(new GameStateCompletedEvent(GameState.LevelGeneration));
         }
         else if (e.gameState == GameState.RoulettePlayerWheel)
         {
             SelectRandomPlayer();
+            GameEventManager.Instance.TriggerSyncEvent(new GameStateCompletedEvent(GameState.RoulettePlayerWheel));
+        }
+    }
+
+    private void Update()
+    {
+        if (!player)
+            return;
+
+        if(currentState == GameState.Gameplay)
+        {
+            if ((DateTime.Now - switchTime).TotalMilliseconds >= currentSwitchTime * 1000f)
+            {
+                SelectRandomPlayer();
+            }
         }
     }
 
@@ -79,6 +103,48 @@ public class LevelManager : MonoBehaviour
 
     private void SelectRandomPlayer()
     {
-        
+        PlayerBehaviourType behaviour = currentAvailablePlayers[currentPlayerIndex];
+
+        Destroy(selectedPlayerBehaviour);
+        GameObject pref = trianglePref;
+
+        switch (behaviour)
+        {
+            case PlayerBehaviourType.Triangle:
+                pref = trianglePref;
+                break;
+            case PlayerBehaviourType.Square:
+                pref = squarePref;
+                break;
+            case PlayerBehaviourType.Circle:
+                break;
+            case PlayerBehaviourType.Plus:
+                break;
+        }
+
+        selectedPlayerBehaviour = Instantiate(pref, player.transform);
+        selectedPlayerBehaviour.transform.localPosition = Vector3.zero;
+
+        switch (behaviour)
+        {
+            case PlayerBehaviourType.Triangle:
+                selectedPlayerBehaviour.GetComponentInChildren<TrianglePlayer>().InitializeBehaviour();
+                break;
+            case PlayerBehaviourType.Square:
+                selectedPlayerBehaviour.GetComponentInChildren<SquarePlayer>().InitializeBehaviour();
+                break;
+            case PlayerBehaviourType.Circle:
+                break;
+            case PlayerBehaviourType.Plus:
+                break;
+        }
+
+        currentSwitchTime = UnityEngine.Random.Range(minPlayerSwitchTime, maxPlayerSwitchTime);
+        switchTime = DateTime.Now;
+
+        currentPlayerIndex++;
+
+        if (currentPlayerIndex > currentAvailablePlayers.Count - 1)
+            currentPlayerIndex = 0;
     }
 }

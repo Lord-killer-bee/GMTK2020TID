@@ -14,16 +14,24 @@ public class EnemyBullet : MonoBehaviour
     private Vector3 enemyVelocity;
 
     private Rigidbody rigidbody;
+    bool reflected = false;
 
     public void ReflectBullet(Vector3 normal)
     {
         transform.forward = Vector3.Reflect(transform.forward, normal);
+        reflected = true;
+        Debug.Log("BulletRefleced");
     }
 
     private void Update()
     {
-        if(bulletInitialized)
-            rigidbody.velocity = (transform.forward + enemyVelocity) * bulletSpeed;
+        if (bulletInitialized)
+        {
+            if(reflected)
+                rigidbody.velocity = (transform.forward - enemyVelocity) * bulletSpeed;
+            else
+                rigidbody.velocity = (transform.forward + enemyVelocity) * bulletSpeed;
+        }
     }
 
     public void InitializeBullet(float bulletSpeed, Vector3 fireDirection, float bulletDamage, Vector3 enemyVelocity)

@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     {
         currentHP -= damage;
 
-        if(currentHP < 0)
+        if(currentHP <= 0)
         {
             Destroy(gameObject);
             return true;
