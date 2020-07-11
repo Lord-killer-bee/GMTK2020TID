@@ -11,9 +11,12 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
     Vector3 targetPosition = Vector3.zero;
 
+    private Vector3 velocity;
+
     void Start()
     {
         GameEventManager.Instance.TriggerSyncEvent(new PlayerCreatedEvent(transform));
+        //GetComponent<SquarePlayer>().InitializeBehaviour();
     }
 
     void Update()
@@ -38,5 +41,11 @@ public class PlayerController : MonoBehaviour
             targetPosition.z = 0;
 
         transform.Translate(targetPosition, Space.World);
+        velocity = targetPosition / Time.deltaTime;
+    }
+
+    public Vector3 GetVelocity()
+    {
+        return velocity;
     }
 }
