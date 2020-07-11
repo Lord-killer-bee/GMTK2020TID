@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,5 +35,18 @@ public class EnemyBullet : MonoBehaviour
         this.enemyVelocity = enemyVelocity;
 
         rigidbody = GetComponent<Rigidbody>();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == GameConsts.ENEMY_TAG || collision.gameObject.tag == GameConsts.PLAYER_TAG || collision.gameObject.tag == GameConsts.BOUNDARY_TAG)
+        {
+            Destroy(gameObject);
+        }
+
+        if(collision.gameObject.tag == GameConsts.ENEMY_TAG)
+        {
+            GameEventManager.Instance.TriggerSyncEvent(new DamageEnemyEvent(collision.gameObject, bulletDamage));
+        }
     }
 }

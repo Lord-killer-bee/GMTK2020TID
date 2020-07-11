@@ -30,6 +30,9 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (!playerTransform)
+            return;
+
         if (playerMoveStarted)
         {
             targetPosition = new Vector3(playerTransform.position.x, camHeight, playerTransform.position.z);

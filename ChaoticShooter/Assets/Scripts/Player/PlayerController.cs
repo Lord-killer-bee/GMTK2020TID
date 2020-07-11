@@ -7,16 +7,20 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float playerWidth = 0.5f;
+    [SerializeField] private float maxPlayerHP = 1;
 
     Vector3 moveDirection = Vector3.zero;
     Vector3 targetPosition = Vector3.zero;
+
+    private float playerHP;
 
     private Vector3 velocity;
 
     void Start()
     {
         GameEventManager.Instance.TriggerSyncEvent(new PlayerCreatedEvent(transform));
-        //GetComponent<SquarePlayer>().InitializeBehaviour();
+        GetComponent<TrianglePlayer>().InitializeBehaviour();
+        playerHP = maxPlayerHP;
     }
 
     void Update()
@@ -47,5 +51,19 @@ public class PlayerController : MonoBehaviour
     public Vector3 GetVelocity()
     {
         return velocity;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if((collision.gameObject.tag == GameConsts.ENEMY_BULLET_TAG) || (collision.gameObject.tag == GameConsts.ENEMY_TAG))
+        {
+            playerHP--;
+            if(playerHP <= 0)
+            {
+                GameEventManager.Instance.TriggerSyncEvent(new PlayerDestroyedEvent(transform));
+
+                Destroy(gameObject);
+            }
+        }
     }
 }

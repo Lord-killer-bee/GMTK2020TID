@@ -6,3 +6,14 @@
     Circle,
     Plus
 }
+
+public enum GameState
+{
+    None,
+    LevelGeneration,
+    RoulettePlayerWheel,
+    EnemiesGeneration,
+    Gameplay,
+    LevelComplete,
+    LevelFailed
+}

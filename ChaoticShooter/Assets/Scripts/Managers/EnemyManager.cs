@@ -26,15 +26,21 @@ public class EnemyManager : MonoBehaviour
     private void OnEnable()
     {
         GameEventManager.Instance.AddListener<PlayerCreatedEvent>(CreateStartingEnemies);
+        GameEventManager.Instance.AddListener<DamageEnemyEvent>(DamageEnemy);
     }
 
     private void OnDisable()
     {
         GameEventManager.Instance.RemoveListener<PlayerCreatedEvent>(CreateStartingEnemies);
+        GameEventManager.Instance.RemoveListener<DamageEnemyEvent>(DamageEnemy);
+
     }
-    
+
     void Update()
     {
+        if (!targetPlayer)
+            return;
+
         if (enemyCreated)
         {
             if((DateTime.Now - enemyCreatedTime).TotalMilliseconds >= enemySpawnTimeGap * 1000)
@@ -67,6 +73,14 @@ public class EnemyManager : MonoBehaviour
 
         enemyCreated = true;
         enemyCreatedTime = DateTime.Now;
+    }
+
+    private void DamageEnemy(DamageEnemyEvent e)
+    {
+        if (e.targetEnemy.GetComponent<Enemy>().TakeDamage(e.damageDealt))
+        {
+            currentEnemies.Remove(e.targetEnemy);
+        }
     }
 
     void CreateNextEnemy()

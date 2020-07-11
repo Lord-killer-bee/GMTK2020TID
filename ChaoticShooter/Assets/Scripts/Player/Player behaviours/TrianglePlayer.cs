@@ -83,5 +83,6 @@ public class TrianglePlayer : MonoBehaviour
         laser.transform.localPosition = firepoints[index].localPosition;
         laser.transform.forward = firepoints[index].forward;
         lasersList.Add(laser);
+        laser.GetComponentInChildren<LaserBullet>().InitializeBullet(laserLength, laserDamage);
     }
 }

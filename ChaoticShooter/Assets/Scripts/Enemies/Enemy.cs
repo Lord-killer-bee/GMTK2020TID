@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private float maxEnemyHP = 1;
+
+    private float currentHP;
+
     public void InitializeEnemy(GameObject player)
     {
         EnemyBaseBehaviour[] behaviours = GetComponents<EnemyBaseBehaviour>();
@@ -11,6 +15,23 @@ public class Enemy : MonoBehaviour
         for (int i = 0; i < behaviours.Length; i++)
         {
             behaviours[i].InitializeBehaviour(player);
+        }
+
+        currentHP = maxEnemyHP;
+    }
+
+    public bool TakeDamage(float damage)
+    {
+        currentHP -= damage;
+
+        if(currentHP < 0)
+        {
+            Destroy(gameObject);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

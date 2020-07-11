@@ -11,12 +11,16 @@ public class EnemyFollow : EnemyBaseBehaviour
     bool behaviourInitialized = false;
     
     GameObject target;
-    
+
+    private void Start()
+    {
+        rigidBody = GetComponent<Rigidbody>();
+    }
+
     public override void InitializeBehaviour(GameObject target)
     {
         behaviourInitialized = true;
         this.target = target;
-        rigidBody = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -25,6 +29,8 @@ public class EnemyFollow : EnemyBaseBehaviour
         {
             FollowPlayer();
         }
+        else
+            rigidBody.velocity = Vector3.zero;
     }
 
     private void FollowPlayer()

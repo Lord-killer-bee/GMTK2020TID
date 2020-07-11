@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Core;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +9,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int rowCount = 10;
     [SerializeField] private int columnCount = 10;
     [SerializeField] private int camMarginOffset = 1;
+
+    [SerializeField] private GameObject playerPref;
+    [SerializeField] private GameObject trianglePref;
+    [SerializeField] private GameObject squarePref;
 
     public static float minMarginX = -5;
     public static float maxMarginX = 5;
@@ -18,21 +24,61 @@ public class LevelManager : MonoBehaviour
     public static float minCamMarginZ = -5;
     public static float maxCamMarginZ = 5;
 
-    void Start()
+    private List<PlayerBehaviourType> currentAvailablePlayers = new List<PlayerBehaviourType>() { PlayerBehaviourType.Triangle, PlayerBehaviourType.Square };
+    private int currentPlayerIndex = 0;
+    private GameObject selectedPlayerBehaviour;
+    private GameObject player;
+
+    private void OnEnable()
     {
-        SetupLevel();
+        GameEventManager.Instance.AddListener<GameStateSetEvent>(SetupLevel);
     }
 
-    public void SetupLevel()
+    private void OnDisable()
     {
-        minMarginX = -rowCount / 2;
-        maxMarginX = -minMarginX;
-        minMarginZ = -columnCount / 2;
-        maxMarginZ = -minMarginZ;
+        GameEventManager.Instance.RemoveListener<GameStateSetEvent>(SetupLevel);
+    }
 
-        minCamMarginX = (-rowCount / 2) + camMarginOffset;
-        maxCamMarginX = -minMarginX - camMarginOffset;
-        minCamMarginZ = (-columnCount / 2) + camMarginOffset;
-        maxCamMarginZ = -minMarginZ - camMarginOffset;
+    private void SetupLevel(GameStateSetEvent e)
+    {
+        if (e.gameState == GameState.LevelGeneration)
+        {
+            minMarginX = -rowCount / 2;
+            maxMarginX = -minMarginX;
+            minMarginZ = -columnCount / 2;
+            maxMarginZ = -minMarginZ;
+
+            minCamMarginX = (-rowCount / 2) + camMarginOffset;
+            maxCamMarginX = -minMarginX - camMarginOffset;
+            minCamMarginZ = (-columnCount / 2) + camMarginOffset;
+            maxCamMarginZ = -minMarginZ - camMarginOffset;
+
+            GameEventManager.Instance.TriggerSyncEvent(new GameStateCompletedEvent(GameState.LevelGeneration));
+
+            player = Instantiate(playerPref, Vector3.zero, Quaternion.identity);
+
+            currentPlayerIndex = 0;
+            ShufflePlayers();
+        }
+        else if (e.gameState == GameState.RoulettePlayerWheel)
+        {
+            SelectRandomPlayer();
+        }
+    }
+
+    private void ShufflePlayers()
+    {
+        for (int i = 0; i < currentAvailablePlayers.Count; i++)
+        {
+            var temp = currentAvailablePlayers[i];
+            int randomIndex = UnityEngine.Random.Range(i, currentAvailablePlayers.Count);
+            currentAvailablePlayers[i] = currentAvailablePlayers[randomIndex];
+            currentAvailablePlayers[randomIndex] = temp;
+        }
+    }
+
+    private void SelectRandomPlayer()
+    {
+        
     }
 }
