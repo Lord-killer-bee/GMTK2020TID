@@ -30,6 +30,9 @@ public class CirclePlayer : MonoBehaviour
 
     public void InitializeBehaviour()
     {
+        if (behaviourInitialized)
+            return;
+
         behaviourType = PlayerBehaviourType.Square;
         behaviourInitialized = true;
 

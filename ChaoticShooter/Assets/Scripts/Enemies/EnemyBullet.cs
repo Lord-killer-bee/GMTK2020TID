@@ -27,7 +27,7 @@ public class EnemyBullet : MonoBehaviour
         if (bulletInitialized)
         {
             if(reflected)
-                rigidbody.velocity = (transform.forward - enemyVelocity) * bulletSpeed;
+                rigidbody.velocity = (transform.forward - enemyVelocity) * bulletSpeed * 2;
             else
                 rigidbody.velocity = (transform.forward + enemyVelocity) * bulletSpeed;
         }

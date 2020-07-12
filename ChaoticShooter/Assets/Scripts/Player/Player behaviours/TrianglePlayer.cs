@@ -37,6 +37,9 @@ public class TrianglePlayer : MonoBehaviour
 
     public void InitializeBehaviour()
     {
+        if (behaviourInitialized)
+            return;
+
         behaviourType = PlayerBehaviourType.Triangle;
         behaviourInitialized = true;
 

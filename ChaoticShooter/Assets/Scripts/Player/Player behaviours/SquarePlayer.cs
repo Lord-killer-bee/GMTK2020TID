@@ -6,6 +6,8 @@ using UnityEngine;
 public class SquarePlayer : MonoBehaviour
 {
     [SerializeField] private Transform[] reflectors;
+    [SerializeField] private GameObject chargeEffectPref;
+    [SerializeField] private float shieldChargeTime = 0.5f;
 
     private bool[] reflectorsStatus;
     private PlayerBehaviourType behaviourType;
@@ -13,23 +15,33 @@ public class SquarePlayer : MonoBehaviour
 
     [SerializeField] private float minShieldSwitchTime = 1.5f;
     [SerializeField] private float maxShieldSwitchTime = 3f;
+    [SerializeField] private int activeShields = 1;
 
-    private DateTime switchTime;
+    private List<GameObject> chargeEffects = new List<GameObject>();
+
+    private DateTime switchTime, chargeTime;
+    private bool chargeStarted;
     private float currentSwitchTime;
 
     public void InitializeBehaviour()
     {
+        if (behaviourInitialized)
+            return;
+
         behaviourType = PlayerBehaviourType.Square;
         behaviourInitialized = true;
 
         reflectorsStatus = new bool[reflectors.Length];
-        reflectorsStatus[0] = true;
-        reflectorsStatus[2] = true;
+        for (int i = 0; i < activeShields; i++)
+        {
+            reflectorsStatus[i] = true;
+        }
 
         SetReflectors();
 
         currentSwitchTime = UnityEngine.Random.Range(minShieldSwitchTime, maxShieldSwitchTime);
         switchTime = DateTime.Now;
+        chargeStarted = false;
     }
 
     public void SetReflectors()
@@ -37,21 +49,52 @@ public class SquarePlayer : MonoBehaviour
         for (int i = 0; i < reflectors.Length; i++)
         {
             if(reflectorsStatus[i])
-                reflectors[i].gameObject.SetActive(true);
+                reflectors[i].GetChild(0).gameObject.SetActive(true);
             else
-                reflectors[i].gameObject.SetActive(false);
+                reflectors[i].GetChild(0).gameObject.SetActive(false);
         }
     }
 
     private void Update()
     {
-        if ((DateTime.Now - switchTime).TotalMilliseconds >= currentSwitchTime * 1000)
+        if (chargeStarted)
         {
-            ShuffleStatuses();
-            SetReflectors();
+            if ((DateTime.Now - chargeTime).TotalMilliseconds >= shieldChargeTime * 1000)
+            {
+                for (int i = 0; i < chargeEffects.Count; i++)
+                {
+                    Destroy(chargeEffects[i]);
+                }
+                chargeEffects.Clear();
 
-            currentSwitchTime = UnityEngine.Random.Range(minShieldSwitchTime, maxShieldSwitchTime);
-            switchTime = DateTime.Now;
+                SetReflectors();
+
+                currentSwitchTime = UnityEngine.Random.Range(minShieldSwitchTime, maxShieldSwitchTime);
+                switchTime = DateTime.Now;
+                chargeStarted = false;
+            }
+        }
+        else
+        {
+            if ((DateTime.Now - switchTime).TotalMilliseconds >= currentSwitchTime * 1000)
+            {
+                ShuffleStatuses();
+
+                for (int i = 0; i < reflectorsStatus.Length; i++)
+                {
+                    if (reflectorsStatus[i])
+                    {
+                        GameObject chargeEffect = Instantiate(chargeEffectPref, Vector3.zero, Quaternion.identity, reflectors[i]);
+                        chargeEffect.transform.localPosition = Vector3.zero;
+                        chargeEffect.transform.localEulerAngles = Vector3.zero;
+
+                        chargeEffects.Add(chargeEffect);
+                    }
+                }
+
+                chargeStarted = true;
+                chargeTime = DateTime.Now;
+            }
         }
     }
 

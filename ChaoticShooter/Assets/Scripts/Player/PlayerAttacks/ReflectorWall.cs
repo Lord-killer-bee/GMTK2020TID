@@ -5,30 +5,32 @@ using UnityEngine;
 
 public class ReflectorWall : MonoBehaviour
 {
+    [SerializeField] private GameObject impactEffectPref;
+
+    private List<GameObject> impactObjects = new List<GameObject>();
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == GameConsts.ENEMY_BULLET_TAG)
         {
-            // find collision point and normal. You may want to average over all contacts
             var point = collision.contacts[0].point;
-            var dir = -collision.contacts[0].normal; // you need vector pointing TOWARDS the collision, not away from it
-                                                // step back a bit
+            var dir = -collision.contacts[0].normal;
+
             point -= dir;
             RaycastHit hitInfo;
-            // cast a ray twice as far as your step back. This seems to work in all
-            // situations, at least when speeds are not ridiculously big
             if (collision.collider.Raycast(new Ray(point, dir), out hitInfo, 2))
             {
-                // this is the collider surface normal
                 var normal = hitInfo.normal;
-                // this is the collision angle
-                // you might want to use .velocity instead of .forward here, but it 
-                // looks like it's already changed due to bounce in OnCollisionEnter
-                var angle = Vector3.Angle(-transform.forward, normal);
-
                 collision.gameObject.GetComponentInParent<EnemyBullet>().ReflectBullet(normal);
 
                 GameEventManager.Instance.TriggerAsyncEvent(new ShakeCameraEvent());
+
+                GameObject impactObj = Instantiate(impactEffectPref, Vector3.zero, Quaternion.identity, transform);
+                impactObj.transform.position = hitInfo.point;
+                impactObj.transform.localEulerAngles = new Vector3(90, 0, 0);
+                impactObj.GetComponent<DestroyEffects>().InitiateDestroy();
+
+                impactObjects.Add(impactObj);
             }
         }
     }

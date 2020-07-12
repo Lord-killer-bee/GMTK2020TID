@@ -25,6 +25,9 @@ public class PlusPlayer : MonoBehaviour
 
     public void InitializeBehaviour()
     {
+        if (behaviourInitialized)
+            return;
+
         behaviourType = PlayerBehaviourType.Plus;
         behaviourInitialized = true;
 
