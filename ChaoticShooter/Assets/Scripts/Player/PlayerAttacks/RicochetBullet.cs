@@ -23,10 +23,31 @@ public class RicochetBullet : MonoBehaviour
         rigidbody.AddForce(((transform.forward) * bulletSpeed) + playerVelocity, ForceMode.VelocityChange);
     }
 
-    private void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (bulletInitialized)
+        if (collision.gameObject.tag == GameConsts.BOUNDARY_TAG)
         {
+            // find collision point and normal. You may want to average over all contacts
+            var point = collision.contacts[0].point;
+            var dir = -collision.contacts[0].normal; // you need vector pointing TOWARDS the collision, not away from it
+                                                     // step back a bit
+            point -= dir;
+            RaycastHit hitInfo;
+            // cast a ray twice as far as your step back. This seems to work in all
+            // situations, at least when speeds are not ridiculously big
+            if (GetComponent<Collider>().Raycast(new Ray(point, dir), out hitInfo, 2))
+            {
+                // this is the collider surface normal
+                var normal = hitInfo.normal;
+
+                ReflectBullet(normal);
+            }
         }
+    }
+
+    public void ReflectBullet(Vector3 normal)
+    {
+        transform.forward = Vector3.Reflect(transform.forward, normal);
+        rigidbody.AddForce(((transform.forward) * bulletSpeed) - playerVelocity, ForceMode.VelocityChange);
     }
 }

@@ -20,7 +20,6 @@ public class EnemyBullet : MonoBehaviour
     {
         transform.forward = Vector3.Reflect(transform.forward, normal);
         reflected = true;
-        Debug.Log("BulletRefleced");
     }
 
     private void Update()

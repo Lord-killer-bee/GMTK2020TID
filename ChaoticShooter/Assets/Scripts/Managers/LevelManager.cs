@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour
     public static float minCamMarginZ = -5;
     public static float maxCamMarginZ = 5;
 
-    private List<PlayerBehaviourType> currentAvailablePlayers = new List<PlayerBehaviourType>() { PlayerBehaviourType.Triangle, PlayerBehaviourType.Square };
+    private List<PlayerBehaviourType> currentAvailablePlayers = new List<PlayerBehaviourType>() { PlayerBehaviourType.Triangle, PlayerBehaviourType.Square , PlayerBehaviourType.Circle};
     private int currentPlayerIndex = 0;
     private GameObject selectedPlayerBehaviour;
     private GameObject player;
@@ -105,6 +105,8 @@ public class LevelManager : MonoBehaviour
     private void SelectRandomPlayer()
     {
         PlayerBehaviourType behaviour = currentAvailablePlayers[currentPlayerIndex];
+
+        //behaviour = PlayerBehaviourType.Circle;
 
         Destroy(selectedPlayerBehaviour);
         GameObject pref = trianglePref;

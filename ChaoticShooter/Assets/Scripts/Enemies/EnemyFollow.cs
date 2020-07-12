@@ -38,7 +38,7 @@ public class EnemyFollow : EnemyBaseBehaviour
         //Interpolating the speed in order to reduce the relative motion from environment movement
     
         //transform.position = Vector3.MoveTowards(transform.position, target.transform.position, followSpeed * Time.deltaTime);
-        rigidBody.velocity = (target.transform.position - transform.position).normalized * followSpeed;
+        //rigidBody.velocity = (target.transform.position - transform.position).normalized * followSpeed;
         transform.LookAt(target.transform);
     
         Debug.DrawLine(transform.position, target.transform.position, Color.red);
