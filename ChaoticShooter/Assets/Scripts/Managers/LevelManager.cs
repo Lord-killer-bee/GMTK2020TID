@@ -107,7 +107,7 @@ public class LevelManager : MonoBehaviour
     {
         PlayerBehaviourType behaviour = currentAvailablePlayers[currentPlayerIndex];
 
-        //behaviour = PlayerBehaviourType.Plus;
+        //behaviour = PlayerBehaviourType.Triangle;
 
         Destroy(selectedPlayerBehaviour);
         GameObject pref = trianglePref;

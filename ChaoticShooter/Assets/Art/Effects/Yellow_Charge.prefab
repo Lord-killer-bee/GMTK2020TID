@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8049154386889148501}
   - component: {fileID: 8049154386889148502}
   m_Layer: 0
-  m_Name: Charge
+  m_Name: Yellow_Charge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8049154386889148503}
   serializedVersion: 6
-  lengthInSec: 1
+  lengthInSec: 0.5
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0

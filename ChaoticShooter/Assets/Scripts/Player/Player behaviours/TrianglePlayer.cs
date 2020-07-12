@@ -7,11 +7,14 @@ using UnityEngine;
 public class TrianglePlayer : MonoBehaviour
 {
     [SerializeField] private GameObject laserPref;
+    [SerializeField] private GameObject chargeEffectPref;
     [SerializeField] private Transform[] firepoints;
     [SerializeField] private float laserStayTime = 2f;
+    [SerializeField] private float laserChargeTime = 0.5f;
     [SerializeField] private float reloadTime = 0.5f;
     [SerializeField] private float laserDamage = 1f;
     [SerializeField] private float laserLength = 1f;
+
 
     [SerializeField] private float minFirepointSwitchTime = 1.5f;
     [SerializeField] private float maxFirepointSwitchTime = 3f;
@@ -21,13 +24,16 @@ public class TrianglePlayer : MonoBehaviour
     private PlayerBehaviourType behaviourType;
     private bool behaviourInitialized = false;
     private bool[] firepointsStatus;
-    private DateTime firedTime, waitTime;
-    private bool fireStarted, waitStarted;
+    private DateTime firedTime, waitTime, chargeTime;
+    private bool fireStarted, waitStarted, chargeStarted;
 
     private DateTime switchTime;
     private float currentSwitchTime;
 
+    private bool randomizeTriggered = false;
+
     private List<GameObject> lasersList = new List<GameObject>();
+    private List<GameObject> chargeEffects = new List<GameObject>();
 
     public void InitializeBehaviour()
     {
@@ -38,11 +44,13 @@ public class TrianglePlayer : MonoBehaviour
         for (int i = 0; i < activeFirepoints; i++)
         {
             firepointsStatus[i] = true;
+            firepoints[i].gameObject.SetActive(true);
         }
 
         waitTime = DateTime.Now;
         waitStarted = true;
         fireStarted = false;
+        chargeStarted = false;
 
         currentSwitchTime = UnityEngine.Random.Range(minFirepointSwitchTime, maxFirepointSwitchTime);
         switchTime = DateTime.Now;
@@ -56,10 +64,44 @@ public class TrianglePlayer : MonoBehaviour
             {
                 if ((DateTime.Now - waitTime).TotalMilliseconds >= reloadTime * 1000)
                 {
-                    lasersList.Clear();
+                    if (randomizeTriggered)
+                        RandomizeFirepoints();
+
+                    chargeTime = DateTime.Now;
+                    chargeStarted = true;
+
                     for (int i = 0; i < firepointsStatus.Length; i++)
                     {
                         if (firepointsStatus[i])
+                        {
+                            GameObject chargeEffect = Instantiate(chargeEffectPref, Vector3.zero, Quaternion.identity, firepoints[i]);
+                            chargeEffect.transform.localPosition = Vector3.zero;
+
+                            chargeEffects.Add(chargeEffect);
+                        }
+                    }
+                    
+
+                    fireStarted = false;
+                    waitStarted = false;
+                }
+            }
+            else if (chargeStarted)
+            {
+                if ((DateTime.Now - chargeTime).TotalMilliseconds >= laserChargeTime * 1000)
+                {
+                    lasersList.Clear();
+
+                    for (int i = 0; i < chargeEffects.Count; i++)
+                    {
+                        Destroy(chargeEffects[i]);
+                    }
+
+                    chargeEffects.Clear();
+
+                    for (int i = 0; i < firepoints.Length; i++)
+                    {
+                        if (firepoints[i].gameObject.activeInHierarchy)
                         {
                             FireLaser(i);
                         }
@@ -67,7 +109,9 @@ public class TrianglePlayer : MonoBehaviour
 
                     firedTime = DateTime.Now;
                     fireStarted = true;
+
                     waitStarted = false;
+                    chargeStarted = false;
                 }
             }
             else if (fireStarted)
@@ -75,8 +119,10 @@ public class TrianglePlayer : MonoBehaviour
                 if ((DateTime.Now - firedTime).TotalMilliseconds >= laserStayTime * 1000)
                 {
                     waitTime = DateTime.Now;
-                    fireStarted = false;
                     waitStarted = true;
+
+                    fireStarted = false;
+                    chargeStarted = false;
 
                     for (int i = 0; i < lasersList.Count; i++)
                     {
@@ -86,9 +132,9 @@ public class TrianglePlayer : MonoBehaviour
                 }
             }
 
-            if ((DateTime.Now - switchTime).TotalMilliseconds >= currentSwitchTime * 1000)
+            if ((DateTime.Now - switchTime).TotalMilliseconds >= currentSwitchTime * 1000 && !randomizeTriggered)
             {
-                RandomizeFirepoints();
+                TriggerRandomize();
             }
         }
     }
@@ -103,6 +149,11 @@ public class TrianglePlayer : MonoBehaviour
         laser.GetComponentInChildren<LaserBullet>().InitializeBullet(laserLength, laserDamage);
 
         //GameEventManager.Instance.TriggerAsyncEvent(new ShakeCameraEvent());
+    }
+
+    void TriggerRandomize()
+    {
+        randomizeTriggered = true;
     }
 
     private void RandomizeFirepoints()
@@ -129,6 +180,11 @@ public class TrianglePlayer : MonoBehaviour
             int randomIndex = UnityEngine.Random.Range(i, firepointsStatus.Length);
             firepointsStatus[i] = firepointsStatus[randomIndex];
             firepointsStatus[randomIndex] = temp;
+        }
+
+        for (int i = 0; i < firepointsStatus.Length; i++)
+        {
+            firepoints[i].gameObject.SetActive(firepointsStatus[i]);
         }
     }
 }
