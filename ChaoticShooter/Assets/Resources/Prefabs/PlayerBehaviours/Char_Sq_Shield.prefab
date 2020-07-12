@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd95e53fdafa27847bc74d71ab29667d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  charge: {fileID: 8300000, guid: 1632067cdab1faf4d80dbcb0a5e7c365, type: 3}
   reflectors:
   - {fileID: 961070744111735347}
   - {fileID: 8203167550970734623}
@@ -133,7 +134,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.747
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -207,7 +208,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.555
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -273,6 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d752e74487b104895763800ffd8ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deflect: {fileID: 8300000, guid: 4d1bc8314c5d3da47afc9c84b72a01a5, type: 3}
   impactEffectPref: {fileID: 4107453027198464774, guid: 3db12a1ce17485f4cb253b13379661bd,
     type: 3}
 --- !u!65 &1639979525392647589
@@ -300,6 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d752e74487b104895763800ffd8ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deflect: {fileID: 8300000, guid: 4d1bc8314c5d3da47afc9c84b72a01a5, type: 3}
   impactEffectPref: {fileID: 4107453027198464774, guid: 3db12a1ce17485f4cb253b13379661bd,
     type: 3}
 --- !u!1 &6785967699350834745
@@ -358,6 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d752e74487b104895763800ffd8ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deflect: {fileID: 8300000, guid: 4d1bc8314c5d3da47afc9c84b72a01a5, type: 3}
   impactEffectPref: {fileID: 4107453027198464774, guid: 3db12a1ce17485f4cb253b13379661bd,
     type: 3}
 --- !u!65 &7145944247903312678
@@ -385,6 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d752e74487b104895763800ffd8ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deflect: {fileID: 8300000, guid: 4d1bc8314c5d3da47afc9c84b72a01a5, type: 3}
   impactEffectPref: {fileID: 4107453027198464774, guid: 3db12a1ce17485f4cb253b13379661bd,
     type: 3}
 --- !u!1 &8316244171840687036

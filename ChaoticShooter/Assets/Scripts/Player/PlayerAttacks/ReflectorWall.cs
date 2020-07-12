@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class ReflectorWall : MonoBehaviour
 {
+    [SerializeField] private AudioClip deflect;
+
+
     [SerializeField] private GameObject impactEffectPref;
 
     private List<GameObject> impactObjects = new List<GameObject>();
@@ -13,6 +16,7 @@ public class ReflectorWall : MonoBehaviour
     {
         if(collision.gameObject.tag == GameConsts.ENEMY_BULLET_TAG)
         {
+            GetComponentInParent<AudioSource>().PlayOneShot(deflect);
             var point = collision.contacts[0].point;
             var dir = -collision.contacts[0].normal;
 

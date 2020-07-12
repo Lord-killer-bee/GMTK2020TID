@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class SquarePlayer : MonoBehaviour
 {
+    [SerializeField] private AudioClip charge;
+    
+
     [SerializeField] private Transform[] reflectors;
     [SerializeField] private GameObject chargeEffectPref;
     [SerializeField] private float shieldChargeTime = 0.5f;
@@ -58,6 +61,7 @@ public class SquarePlayer : MonoBehaviour
     {
         if (chargeStarted)
         {
+
             if ((DateTime.Now - chargeTime).TotalMilliseconds >= shieldChargeTime * 1000)
             {
                 for (int i = 0; i < chargeEffects.Count; i++)
@@ -78,6 +82,7 @@ public class SquarePlayer : MonoBehaviour
             if ((DateTime.Now - switchTime).TotalMilliseconds >= currentSwitchTime * 1000)
             {
                 ShuffleStatuses();
+                GetComponent<AudioSource>().PlayOneShot(charge);
 
                 for (int i = 0; i < reflectorsStatus.Length; i++)
                 {

@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class CirclePlayer : MonoBehaviour
 {
+    [SerializeField] private AudioClip charge;
+    [SerializeField] private AudioClip attack;
+
     [SerializeField] private float arcAngle;
     [SerializeField] private float arcRadius;
     [SerializeField] private float knockbackDistance;
@@ -114,6 +117,8 @@ public class CirclePlayer : MonoBehaviour
                 chargeTime = DateTime.Now;
                 chargeStarted = true;
 
+                GetComponent<AudioSource>().PlayOneShot(charge);
+
                 waitStarted = false;
             }
         }
@@ -153,6 +158,8 @@ public class CirclePlayer : MonoBehaviour
 
     private void FireWave(int index)
     {
+        GetComponent<AudioSource>().PlayOneShot(attack);
+
         GameObject pushEffect = Instantiate(pushEffectPref, Vector3.zero, Quaternion.identity, pusherPoints[index]);
         pushEffect.transform.localPosition = Vector3.zero;
         pushEffect.transform.localEulerAngles = new Vector3(0, 0, 90);

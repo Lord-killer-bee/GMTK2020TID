@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class TrianglePlayer : MonoBehaviour
 {
+    [SerializeField] private AudioClip charge;
+    [SerializeField] private AudioClip attack;
+
     [SerializeField] private GameObject laserPref;
     [SerializeField] private GameObject chargeEffectPref;
     [SerializeField] private Transform[] firepoints;
@@ -66,6 +69,8 @@ public class TrianglePlayer : MonoBehaviour
             {
                 if ((DateTime.Now - waitTime).TotalMilliseconds >= reloadTime * 1000)
                 {
+                    GetComponent<AudioSource>().PlayOneShot(charge);
+
                     if (randomizeTriggered)
                         RandomizeFirepoints();
 
@@ -143,6 +148,8 @@ public class TrianglePlayer : MonoBehaviour
 
     private void FireLaser(int index)
     {
+        //GetComponent<AudioSource>().PlayOneShot(attack);
+
         GameObject laser = Instantiate(laserPref);
         laser.transform.parent = transform;
         laser.transform.localPosition = firepoints[index].localPosition;

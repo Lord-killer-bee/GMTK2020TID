@@ -283,6 +283,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d06933c9ea84b784fac45fe50c19942f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  charge: {fileID: 8300000, guid: 238b17595a5308a4aa3c360d49becefe, type: 3}
+  attack: {fileID: 8300000, guid: 0ebfc3ba6930d1449ae81973fe1a1e66, type: 3}
   laserPref: {fileID: 1250634596896922431, guid: e2528a754d831c7468d7b6d895459558,
     type: 3}
   chargeEffectPref: {fileID: 8049154386889148503, guid: c0575baa5966e3447bc5d8ef9d55df60,
