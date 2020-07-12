@@ -206,7 +206,7 @@ MonoBehaviour:
   - {fileID: 1473341699}
   - {fileID: 1466731900}
   - {fileID: 891651371}
-  bulletSpeed: 2
+  bulletSpeed: 5
   reloadTime: 0.5
   bulletDamage: 1
   minFirepointSwitchTime: 1.5

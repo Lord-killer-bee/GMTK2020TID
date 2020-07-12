@@ -8,10 +8,22 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float maxEnemyHP = 1;
     [SerializeField] private GameObject destroyEffectPref;
 
+    [SerializeField] private GameObject spawnEffect;
+    [SerializeField] private GameObject mesh;
+
     private float currentHP;
+    GameObject player;
 
     public void InitializeEnemy(GameObject player)
     {
+        Invoke("RealInitialize", 1.5f);
+        this.player = player;
+    }
+
+    void RealInitialize()
+    {
+        mesh.SetActive(true);
+        spawnEffect.SetActive(false);
         EnemyBaseBehaviour[] behaviours = GetComponents<EnemyBaseBehaviour>();
 
         for (int i = 0; i < behaviours.Length; i++)

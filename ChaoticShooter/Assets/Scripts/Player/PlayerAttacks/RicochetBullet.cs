@@ -21,13 +21,30 @@ public class RicochetBullet : MonoBehaviour
 
         bulletInitialized = true;
         rigidbody = GetComponent<Rigidbody>();
-        rigidbody.AddForce(((transform.forward) * bulletSpeed) + playerVelocity, ForceMode.VelocityChange);
+
+        if (Vector3.Angle(playerVelocity, transform.forward) == 180)
+        {
+            rigidbody.AddForce(((transform.forward) * bulletSpeed), ForceMode.VelocityChange);
+        }
+        else
+        {
+            rigidbody.AddForce(((transform.forward) * bulletSpeed) + playerVelocity, ForceMode.VelocityChange);
+        }
 
         GameEventManager.Instance.AddListener<GameStateSetEvent>(OnGameStateSet);
+        GetComponent<DestroyEffects>().InitiateDestroy();
+    }
+
+    private void OnDestroy()
+    {
+        GameEventManager.Instance.RemoveListener<GameStateSetEvent>(OnGameStateSet);
     }
 
     private void OnGameStateSet(GameStateSetEvent e)
     {
+        if (this == null)
+            return;
+
         if (e.gameState == GameState.LevelGeneration)
         {
             Destroy(gameObject);
@@ -53,6 +70,10 @@ public class RicochetBullet : MonoBehaviour
 
                 ReflectBullet(normal);
             }
+        }
+        else if(collision.gameObject.tag == GameConsts.PLAYER_TAG || collision.gameObject.tag == GameConsts.ENEMY_TAG || collision.gameObject.tag == GameConsts.PLAYER_BULLET_TAG)
+        {
+            Destroy(gameObject);
         }
     }
 

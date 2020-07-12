@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if((collision.gameObject.tag == GameConsts.ENEMY_BULLET_TAG) || (collision.gameObject.tag == GameConsts.ENEMY_TAG))
+        if((collision.gameObject.tag == GameConsts.ENEMY_BULLET_TAG) || (collision.gameObject.tag == GameConsts.ENEMY_TAG) || (collision.gameObject.tag == GameConsts.PLAYER_BULLET_TAG))
         {
             playerHP--;
             if(playerHP <= 0)
@@ -98,8 +98,6 @@ public class PlayerController : MonoBehaviour
                 GameEventManager.Instance.TriggerSyncEvent(new GameStateCompletedEvent(GameState.Gameplay, false));
 
                 Destroy(gameObject);
-                
-                         
             }
         }
     }
