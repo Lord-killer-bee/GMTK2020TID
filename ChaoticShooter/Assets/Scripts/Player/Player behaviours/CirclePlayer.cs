@@ -9,12 +9,13 @@ public class CirclePlayer : MonoBehaviour
     [SerializeField] private float arcRadius;
     [SerializeField] private float knockbackDistance;
     [SerializeField] private float reloadTime;
+    [SerializeField] private float chargeDuration;
     [SerializeField] private Transform[] pusherPoints;
+    [SerializeField] private GameObject chargeEffectPref;
+    [SerializeField] private GameObject pushEffectPref;
 
-    [SerializeField] private int activePointsCount;
-
-    private DateTime firedTime;
-    bool waitStarted = false;
+    private DateTime waitTime, chargeTime;
+    private bool waitStarted, chargeStarted;
 
     private PlayerBehaviourType behaviourType;
     private bool behaviourInitialized;
@@ -22,11 +23,16 @@ public class CirclePlayer : MonoBehaviour
 
     [SerializeField] private float minPusherSwitchTime = 1.5f;
     [SerializeField] private float maxPusherSwitchTime = 3f;
+    [SerializeField] private int activePointsCount;
 
     private DateTime switchTime;
     private float currentSwitchTime;
 
+    private bool randomizeTriggered = false;
+
     Collider[] overlapColliders;
+    private List<GameObject> chargeEffects = new List<GameObject>();
+    private List<GameObject> pushEffects = new List<GameObject>();
 
     public void InitializeBehaviour()
     {
@@ -48,8 +54,9 @@ public class CirclePlayer : MonoBehaviour
         currentSwitchTime = UnityEngine.Random.Range(minPusherSwitchTime, maxPusherSwitchTime);
         switchTime = DateTime.Now;
 
-        firedTime = DateTime.Now;
+        waitTime = DateTime.Now;
         waitStarted = true;
+        chargeStarted = false;
     }
 
     private void SetPushers()
@@ -67,17 +74,60 @@ public class CirclePlayer : MonoBehaviour
     {
         if ((DateTime.Now - switchTime).TotalMilliseconds >= currentSwitchTime * 1000)
         {
-            ShuffleStatuses();
-            SetPushers();
-
-            currentSwitchTime = UnityEngine.Random.Range(minPusherSwitchTime, maxPusherSwitchTime);
-            switchTime = DateTime.Now;
+            TriggerRandomize();
         }
 
         if (waitStarted)
         {
-            if ((DateTime.Now - firedTime).TotalMilliseconds >= reloadTime * 1000)
+            if ((DateTime.Now - waitTime).TotalMilliseconds >= reloadTime * 1000)
             {
+                for (int i = 0; i < pushEffects.Count; i++)
+                {
+                    Destroy(pushEffects[i]);
+                }
+
+                pushEffects.Clear();
+
+                if (randomizeTriggered)
+                {
+                    ShuffleStatuses();
+                    SetPushers();
+
+                    currentSwitchTime = UnityEngine.Random.Range(minPusherSwitchTime, maxPusherSwitchTime);
+                    switchTime = DateTime.Now;
+
+                    randomizeTriggered = false;
+                }
+
+                for (int i = 0; i < pusherStatus.Length; i++)
+                {
+                    if (pusherStatus[i])
+                    {
+                        GameObject chargeEffect = Instantiate(chargeEffectPref, Vector3.zero, Quaternion.identity, pusherPoints[i]);
+                        chargeEffect.transform.localPosition = Vector3.zero;
+                        chargeEffect.transform.localEulerAngles = Vector3.zero;
+
+                        chargeEffects.Add(chargeEffect);
+                    }
+                }
+
+                chargeTime = DateTime.Now;
+                chargeStarted = true;
+
+                waitStarted = false;
+            }
+        }
+        else if (chargeStarted)
+        {
+            if ((DateTime.Now - chargeTime).TotalMilliseconds >= chargeDuration * 1000)
+            {
+                for (int i = 0; i < chargeEffects.Count; i++)
+                {
+                    Destroy(chargeEffects[i]);
+                }
+
+                chargeEffects.Clear();
+
                 for (int i = 0; i < pusherPoints.Length; i++)
                 {
                     if (pusherStatus[i])
@@ -86,14 +136,27 @@ public class CirclePlayer : MonoBehaviour
                     }
                 }
 
-                firedTime = DateTime.Now;
+                waitTime = DateTime.Now;
                 waitStarted = true;
+
+                chargeStarted = false;
             }
         }
     }
 
+    void TriggerRandomize()
+    {
+        randomizeTriggered = true;
+    }
+
     private void FireWave(int index)
     {
+        GameObject pushEffect = Instantiate(pushEffectPref, Vector3.zero, Quaternion.identity, pusherPoints[index]);
+        pushEffect.transform.localPosition = Vector3.zero;
+        pushEffect.transform.localEulerAngles = new Vector3(0, 0, 90);
+
+        pushEffects.Add(pushEffect);
+
         overlapColliders = Physics.OverlapSphere(transform.position, arcRadius);
 
         Vector3 leftMargin = Quaternion.AngleAxis(arcAngle / 2, Vector3.up) * pusherPoints[index].transform.forward;
