@@ -1184,8 +1184,8 @@ MonoBehaviour:
   - {fileID: 2139465674}
   - {fileID: 1727767520}
   - {fileID: 122860172}
-  startingEnemyCount: 0
-  enemySpawnTimeGap: 50
+  startingEnemyCount: 2
+  enemySpawnTimeGap: 10
   spawnableEnemies:
   - {fileID: 6376203108920996655, guid: 79808cec48ab7af4eb9dfc6838699d49, type: 3}
   - {fileID: 4690593235276010284, guid: d566a153f0e7b244a94a51cc37078616, type: 3}
