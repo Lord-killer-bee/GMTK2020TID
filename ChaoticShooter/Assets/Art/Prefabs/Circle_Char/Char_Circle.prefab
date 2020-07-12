@@ -87,7 +87,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100002, guid: b45a1b05bdffe49409a4275b906a0b69, type: 3}
+  - {fileID: 2100000, guid: b97fbf9c7f3fe1e4da62c6e6df0a2412, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -164,7 +164,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b45a1b05bdffe49409a4275b906a0b69, type: 3}
+  - {fileID: 2100000, guid: 88e20dad89a4ca7459b1a82f15347dec, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -325,14 +325,17 @@ MonoBehaviour:
   arcRadius: 4
   knockbackDistance: 3
   reloadTime: 1
+  chargeDuration: 0
   pusherPoints:
   - {fileID: 2164172599218140175}
   - {fileID: 5637476620741997914}
   - {fileID: 8214072507396443052}
   - {fileID: 1163479945862634715}
-  activePointsCount: 4
+  chargeEffectPref: {fileID: 0}
+  pushEffectPref: {fileID: 0}
   minPusherSwitchTime: 1.5
   maxPusherSwitchTime: 3
+  activePointsCount: 4
 --- !u!1 &8862236391113413172
 GameObject:
   m_ObjectHideFlags: 0
