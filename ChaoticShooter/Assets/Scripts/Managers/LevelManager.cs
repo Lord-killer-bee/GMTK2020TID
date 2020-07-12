@@ -29,7 +29,7 @@ public class LevelManager : MonoBehaviour
     public static float minCamMarginZ = -5;
     public static float maxCamMarginZ = 5;
 
-    private List<PlayerBehaviourType> currentAvailablePlayers = new List<PlayerBehaviourType>() { PlayerBehaviourType.Triangle, PlayerBehaviourType.Square , PlayerBehaviourType.Circle};
+    private List<PlayerBehaviourType> currentAvailablePlayers = new List<PlayerBehaviourType>() { PlayerBehaviourType.Triangle, PlayerBehaviourType.Square , PlayerBehaviourType.Circle, PlayerBehaviourType.Plus};
     private int currentPlayerIndex = 0;
     private GameObject selectedPlayerBehaviour;
     private GameObject player;

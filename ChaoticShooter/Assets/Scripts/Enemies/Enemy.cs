@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour
     void RealInitialize()
     {
         mesh.SetActive(true);
+        GetComponent<BoxCollider>().enabled = true;
+
         spawnEffect.SetActive(false);
         EnemyBaseBehaviour[] behaviours = GetComponents<EnemyBaseBehaviour>();
 
