@@ -354,7 +354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charge: {fileID: 8300000, guid: 387b0a9f74d5b754b877aed789c4b049, type: 3}
   attack: {fileID: 8300000, guid: a3bc9e37440f8a142ad4fd1eda41f930, type: 3}
-  arcAngle: 180
+  arcAngle: 100
   arcRadius: 8
   knockbackDistance: 10
   reloadTime: 1

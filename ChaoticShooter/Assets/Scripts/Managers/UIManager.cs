@@ -112,6 +112,7 @@ public class UIManager : MonoBehaviour
     {
         gameOverPanel.SetActive(false);
         mainMenuPanel.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(MainStart);
     }
 
     #endregion
