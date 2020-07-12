@@ -1902,7 +1902,7 @@ PrefabInstance:
     - target: {fileID: 4355750006844118708, guid: 3478b5218703a2143b3f891ca0aed2a6,
         type: 3}
       propertyPath: looping
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4355750006844118708, guid: 3478b5218703a2143b3f891ca0aed2a6,
         type: 3}
@@ -1932,7 +1932,7 @@ PrefabInstance:
     - target: {fileID: 4355750006844118708, guid: 3478b5218703a2143b3f891ca0aed2a6,
         type: 3}
       propertyPath: ShapeModule.radiusThickness
-      value: 1.0000
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3478b5218703a2143b3f891ca0aed2a6, type: 3}
