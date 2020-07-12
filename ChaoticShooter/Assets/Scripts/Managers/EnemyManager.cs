@@ -11,6 +11,8 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float enemySpawnTimeGap;
     [SerializeField] private GameObject[] spawnableEnemies;
 
+    [SerializeField] private AudioClip deathAudio;
+
 #if UNITY_EDITOR
     [Help("The weights should add up to 100")]
 #endif
@@ -97,6 +99,8 @@ public class EnemyManager : MonoBehaviour
         if (e.targetEnemy.GetComponent<Enemy>().TakeDamage(e.damageDealt, e.direction))
         {
             currentEnemies.Remove(e.targetEnemy);
+
+            GetComponent<AudioSource>().PlayOneShot(deathAudio);
         }
     }
 

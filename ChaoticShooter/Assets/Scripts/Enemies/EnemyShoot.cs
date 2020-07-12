@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class EnemyShoot : EnemyBaseBehaviour
 {
+    [SerializeField] private AudioClip chargeAndShootClip;
+
     private enum ShootingEnemyState
     {
         None,
@@ -107,6 +109,7 @@ public class EnemyShoot : EnemyBaseBehaviour
         chargeEffectObj.transform.localPosition = Vector3.zero;
         chargeEffectObj.transform.localEulerAngles = Vector3.zero;
 
+        GetComponent<AudioSource>().PlayOneShot(chargeAndShootClip);
         SetState(ShootingEnemyState.ChargingUpShot);
     }
 

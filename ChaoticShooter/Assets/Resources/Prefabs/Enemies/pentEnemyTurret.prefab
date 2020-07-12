@@ -68,6 +68,7 @@ MonoBehaviour:
     type: 3}
   spawnEffect: {fileID: 1502814317521850785}
   mesh: {fileID: 8774171547139051750}
+  deathAudio: {fileID: 8300000, guid: 8161f7f572d426d4ebfa93bb65473114, type: 3}
 --- !u!54 &4690593235276010286
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -96,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e031fa5ee53432f43a0961b3ac8ccd38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chargeAndShootClip: {fileID: 8300000, guid: 3803a2284bbe064448cbad8cccd583c4, type: 3}
   detectionRadius: 6
   bulletChargeTime: 1
   windupTime: 2
@@ -321,6 +323,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4690593235276010282}
     m_Modifications:
+    - target: {fileID: 9153274283291241382, guid: 24d75a1a3a025db479244beec2eb1715,
+        type: 3}
+      propertyPath: m_Name
+      value: spawnEffect
+      objectReference: {fileID: 0}
     - target: {fileID: 52391779437601025, guid: 24d75a1a3a025db479244beec2eb1715,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -375,11 +382,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9153274283291241382, guid: 24d75a1a3a025db479244beec2eb1715,
-        type: 3}
-      propertyPath: m_Name
-      value: spawnEffect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24d75a1a3a025db479244beec2eb1715, type: 3}
