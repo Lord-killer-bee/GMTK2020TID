@@ -93,6 +93,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxEnemyHP: 1
+  destroyEffectPref: {fileID: 2839891458488767151, guid: bb5a0973a0483b347b40d73c3db3b7c0,
+    type: 3}
 --- !u!114 &3010903660273410929
 MonoBehaviour:
   m_ObjectHideFlags: 0

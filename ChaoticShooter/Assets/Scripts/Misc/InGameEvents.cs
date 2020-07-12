@@ -25,11 +25,13 @@ public class DamageEnemyEvent : GameEvent
 {
     public GameObject targetEnemy;
     public float damageDealt;
+    public Vector3 direction;
 
-    public DamageEnemyEvent(GameObject targetEnemy, float damageDealt)
+    public DamageEnemyEvent(GameObject targetEnemy, float damageDealt, Vector3 direction)
     {
         this.targetEnemy = targetEnemy;
         this.damageDealt = damageDealt;
+        this.direction = direction;
     }
 }
 

@@ -174,6 +174,12 @@ public class CirclePlayer : MonoBehaviour
                 if ((Vector3.Angle(temp, leftMargin) < arcAngle) && ((Vector3.Angle(temp, rightMargin) < arcAngle)))
                 {
                     //overlapColliders[i].GetComponentInChildren<Rigidbody>().AddExplosionForce(knockbackDistance, transform.position, arcRadius, 0, ForceMode.VelocityChange);
+
+                    if (overlapColliders[i].GetComponentInChildren<EnemyFollow>())
+                    {
+                        overlapColliders[i].GetComponentInChildren<EnemyFollow>().PauseFollow();
+                    }
+
                     overlapColliders[i].GetComponentInChildren<Rigidbody>().AddForce(((temp) * knockbackDistance), ForceMode.VelocityChange);
                 }
             }

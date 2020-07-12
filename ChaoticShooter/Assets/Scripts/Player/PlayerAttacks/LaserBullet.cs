@@ -26,7 +26,7 @@ public class LaserBullet : MonoBehaviour
     {
         if(collision.gameObject.tag == GameConsts.ENEMY_TAG)
         {
-            GameEventManager.Instance.TriggerAsyncEvent(new DamageEnemyEvent(collision.gameObject, laserDamage));
+            GameEventManager.Instance.TriggerAsyncEvent(new DamageEnemyEvent(collision.gameObject, laserDamage, collision.contacts[0].normal));
         }
         else if(collision.gameObject.tag == GameConsts.ENEMY_BULLET_TAG)
         {

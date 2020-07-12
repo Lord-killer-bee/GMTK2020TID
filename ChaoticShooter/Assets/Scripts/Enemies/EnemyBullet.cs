@@ -79,7 +79,7 @@ public class EnemyBullet : MonoBehaviour
 
         if(collision.gameObject.tag == GameConsts.ENEMY_TAG)
         {
-            GameEventManager.Instance.TriggerSyncEvent(new DamageEnemyEvent(collision.gameObject, bulletDamage));
+            GameEventManager.Instance.TriggerSyncEvent(new DamageEnemyEvent(collision.gameObject, bulletDamage, transform.forward));
         }
     }
 

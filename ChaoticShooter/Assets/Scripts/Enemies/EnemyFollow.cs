@@ -9,6 +9,7 @@ public class EnemyFollow : EnemyBaseBehaviour
     private Rigidbody rigidBody;
     
     bool behaviourInitialized = false;
+    bool paused = false;
     
     GameObject target;
 
@@ -36,17 +37,26 @@ public class EnemyFollow : EnemyBaseBehaviour
     private void FollowPlayer()
     {
         //Interpolating the speed in order to reduce the relative motion from environment movement
-    
-        //transform.position = Vector3.MoveTowards(transform.position, target.transform.position, followSpeed * Time.deltaTime);
-        //rigidBody.velocity = (target.transform.position - transform.position).normalized * followSpeed;
-        transform.LookAt(target.transform);
-    
-        Debug.DrawLine(transform.position, target.transform.position, Color.red);
-    }
-    
-    private void OnCollisionEnter(Collision collision)
-    {
 
+        //transform.position = Vector3.MoveTowards(transform.position, target.transform.position, followSpeed * Time.deltaTime);
+        if (!paused)
+        {
+            rigidBody.velocity = (target.transform.position - transform.position).normalized * followSpeed;
+            transform.LookAt(target.transform);
+
+            Debug.DrawLine(transform.position, target.transform.position, Color.red);
+        }
+    }
+
+    public void PauseFollow()
+    {
+        paused = true;
+        Invoke("ResumeFollow", 3f);
+    }
+
+    public void ResumeFollow()
+    {
+        paused = false;
     }
 
 }

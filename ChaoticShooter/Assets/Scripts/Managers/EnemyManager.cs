@@ -94,7 +94,7 @@ public class EnemyManager : MonoBehaviour
 
     private void DamageEnemy(DamageEnemyEvent e)
     {
-        if (e.targetEnemy.GetComponent<Enemy>().TakeDamage(e.damageDealt))
+        if (e.targetEnemy.GetComponent<Enemy>().TakeDamage(e.damageDealt, e.direction))
         {
             currentEnemies.Remove(e.targetEnemy);
         }
