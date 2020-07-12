@@ -141,7 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRadius: 5
   bulletChargeTime: 1
-  windupTime: 1
+  windupTime: 2
   rotationSpeed: 1
   bulletSpeed: 4
   bulletDamage: 1
@@ -157,11 +157,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3010903660273410932}
     m_Modifications:
-    - target: {fileID: 9153274283291241382, guid: 24d75a1a3a025db479244beec2eb1715,
-        type: 3}
-      propertyPath: m_Name
-      value: spawnEffect
-      objectReference: {fileID: 0}
     - target: {fileID: 52391779437601025, guid: 24d75a1a3a025db479244beec2eb1715,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -216,6 +211,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9153274283291241382, guid: 24d75a1a3a025db479244beec2eb1715,
+        type: 3}
+      propertyPath: m_Name
+      value: spawnEffect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24d75a1a3a025db479244beec2eb1715, type: 3}

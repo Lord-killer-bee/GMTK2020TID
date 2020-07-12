@@ -207,11 +207,10 @@ MonoBehaviour:
   - {fileID: 1466731900}
   - {fileID: 891651371}
   bulletSpeed: 5
-  reloadTime: 0.5
+  reloadTime: 2
   bulletDamage: 1
   minFirepointSwitchTime: 1.5
   maxFirepointSwitchTime: 3
-  activeFirepoints: 1
 --- !u!1001 &1054712350552992116
 PrefabInstance:
   m_ObjectHideFlags: 0

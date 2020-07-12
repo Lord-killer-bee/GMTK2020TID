@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a92658abc338e4aaa68af52b5b1a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 6
+  moveSpeed: 3
   playerWidth: 0.3
   maxPlayerHP: 1
   rotationSpeed: 130
