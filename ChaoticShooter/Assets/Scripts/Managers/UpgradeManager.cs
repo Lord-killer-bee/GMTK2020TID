@@ -53,6 +53,7 @@ public class UpgradeManager : MonoBehaviour
 
     private void OnGameStarted(StartGameEvent e)
     {
+        pendingUpgrades.Clear();
         for (int i = 0; i < 4; i++)
         {
             pendingUpgrades.Add(i, true);

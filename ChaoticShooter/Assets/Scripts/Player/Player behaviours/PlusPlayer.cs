@@ -7,6 +7,7 @@ public class PlusPlayer : MonoBehaviour
 {
     [SerializeField] private GameObject ricochetBulletPref;
     [SerializeField] private Transform[] firepoints;
+    [SerializeField] private GameObject chargeEffectPref;
     [SerializeField] private float bulletSpeed = 2f;
     [SerializeField] private float reloadTime = 0.5f;
     [SerializeField] private float bulletDamage = 1f;
@@ -21,6 +22,8 @@ public class PlusPlayer : MonoBehaviour
 
     private DateTime switchTime;
     private float currentSwitchTime;
+
+    private List<GameObject> chargeEffects = new List<GameObject>();
 
     public void InitializeBehaviour()
     {

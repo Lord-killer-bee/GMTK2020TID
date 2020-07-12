@@ -108,5 +108,11 @@ public class UIManager : MonoBehaviour
         infoPanel.SetActive(false);
     }
 
+    public void GoToMainMenu()
+    {
+        gameOverPanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
+    }
+
     #endregion
 }
