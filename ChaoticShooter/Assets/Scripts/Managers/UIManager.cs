@@ -4,6 +4,7 @@ using UnityEngine;
 using Core;
 using System;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text levelText;
     [SerializeField] private Slider xpSlider;
     [SerializeField] private GameObject upgradeText;
+
+    [SerializeField] private GameObject MainStart;
+    [SerializeField] private GameObject Restart;
 
     private void OnEnable()
     {
@@ -75,6 +79,7 @@ public class UIManager : MonoBehaviour
             case GameState.LevelFailed:
                 inGamePanel.SetActive(false);
                 gameOverPanel.SetActive(true);
+                EventSystem.current.SetSelectedGameObject(Restart);
                 break;
         };
     }
