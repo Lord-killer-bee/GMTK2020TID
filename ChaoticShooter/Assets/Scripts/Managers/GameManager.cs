@@ -11,11 +11,13 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         GameEventManager.Instance.AddListener<GameStateCompletedEvent>(OnGameStateCompleted);
+        GameEventManager.Instance.AddListener<RestartGameEvent>(OnGameRestarted);
     }
 
     private void OnDisable()
     {
         GameEventManager.Instance.RemoveListener<GameStateCompletedEvent>(OnGameStateCompleted);
+        GameEventManager.Instance.RemoveListener<RestartGameEvent>(OnGameRestarted);
     }
 
     void Start()
@@ -53,8 +55,6 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.RoulettePlayerWheel:
                 break;
-            case GameState.EnemiesGeneration:
-                break;
             case GameState.Gameplay:
                 break;
             case GameState.LevelComplete:
@@ -74,15 +74,22 @@ public class GameManager : MonoBehaviour
             case GameState.RoulettePlayerWheel:
                 SetState(GameState.Gameplay);
                 break;
-            case GameState.EnemiesGeneration:
-                break;
             case GameState.Gameplay:
+                if (!(bool)e.param)
+                    SetState(GameState.LevelFailed);
+                else
+                    SetState(GameState.LevelComplete);
                 break;
             case GameState.LevelComplete:
                 break;
             case GameState.LevelFailed:
                 break;
         }
+    }
+
+    private void OnGameRestarted(RestartGameEvent e)
+    {
+        SetState(GameState.LevelGeneration);
     }
 
 }

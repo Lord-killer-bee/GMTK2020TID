@@ -46,14 +46,21 @@ public class GameStateSetEvent: GameEvent
 public class GameStateCompletedEvent : GameEvent
 {
     public GameState gameState;
+    public object param;
 
-    public GameStateCompletedEvent(GameState gameState)
+    public GameStateCompletedEvent(GameState gameState, object param = null)
     {
         this.gameState = gameState;
+        this.param = param;
     }
 }
 
 public class ShakeCameraEvent : GameEvent
+{
+
+}
+
+public class RestartGameEvent : GameEvent
 {
 
 }

@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour
             if(playerHP <= 0)
             {
                 GameEventManager.Instance.TriggerSyncEvent(new PlayerDestroyedEvent(transform));
+                GameEventManager.Instance.TriggerSyncEvent(new GameStateCompletedEvent(GameState.Gameplay, false));
 
                 Destroy(gameObject);
                 

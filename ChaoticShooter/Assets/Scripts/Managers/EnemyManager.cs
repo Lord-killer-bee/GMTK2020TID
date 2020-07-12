@@ -26,12 +26,14 @@ public class EnemyManager : MonoBehaviour
     private void OnEnable()
     {
         GameEventManager.Instance.AddListener<PlayerCreatedEvent>(CreateStartingEnemies);
+        GameEventManager.Instance.AddListener<GameStateSetEvent>(OnGameStateSet);
         GameEventManager.Instance.AddListener<DamageEnemyEvent>(DamageEnemy);
     }
 
     private void OnDisable()
     {
         GameEventManager.Instance.RemoveListener<PlayerCreatedEvent>(CreateStartingEnemies);
+        GameEventManager.Instance.RemoveListener<GameStateSetEvent>(OnGameStateSet);
         GameEventManager.Instance.RemoveListener<DamageEnemyEvent>(DamageEnemy);
 
     }
@@ -73,6 +75,21 @@ public class EnemyManager : MonoBehaviour
 
         enemyCreated = true;
         enemyCreatedTime = DateTime.Now;
+    }
+
+    private void OnGameStateSet(GameStateSetEvent e)
+    {
+        switch (e.gameState)
+        {
+            case GameState.LevelGeneration:
+                for (int i = 0; i < currentEnemies.Count; i++)
+                {
+                    Destroy(currentEnemies[i]);
+                }
+
+                currentEnemies.Clear();
+                break;
+        }
     }
 
     private void DamageEnemy(DamageEnemyEvent e)

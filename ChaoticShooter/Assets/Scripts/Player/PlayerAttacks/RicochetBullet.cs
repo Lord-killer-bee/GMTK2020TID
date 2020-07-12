@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,16 @@ public class RicochetBullet : MonoBehaviour
         bulletInitialized = true;
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.AddForce(((transform.forward) * bulletSpeed) + playerVelocity, ForceMode.VelocityChange);
+
+        GameEventManager.Instance.AddListener<GameStateSetEvent>(OnGameStateSet);
+    }
+
+    private void OnGameStateSet(GameStateSetEvent e)
+    {
+        if (e.gameState == GameState.LevelGeneration)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

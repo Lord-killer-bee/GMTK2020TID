@@ -42,6 +42,24 @@ public class EnemyBullet : MonoBehaviour
         this.enemyVelocity = enemyVelocity;
 
         rigidbody = GetComponent<Rigidbody>();
+
+        GameEventManager.Instance.AddListener<GameStateSetEvent>(OnGameStateSet);
+    }
+
+    private void OnDestroy()
+    {
+        GameEventManager.Instance.RemoveListener<GameStateSetEvent>(OnGameStateSet);
+    }
+
+    private void OnGameStateSet(GameStateSetEvent e)
+    {
+        if (this == null)
+            return;
+
+        if(e.gameState == GameState.LevelGeneration)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
