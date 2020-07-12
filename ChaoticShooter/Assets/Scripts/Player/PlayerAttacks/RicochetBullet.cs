@@ -75,6 +75,11 @@ public class RicochetBullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (collision.gameObject.tag == GameConsts.ENEMY_TAG)
+        {
+            GameEventManager.Instance.TriggerAsyncEvent(new DamageEnemyEvent(collision.gameObject, bulletDamage, collision.contacts[0].normal));
+        }
     }
 
     public void ReflectBullet(Vector3 normal)

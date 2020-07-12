@@ -6,25 +6,50 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] int scoreIncrementPerSecond = 1;
+    [SerializeField] int scoreIncrementForEnemyKill = 1;
+
     private GameState currentState;
+    private DateTime gameStartTime, deadTime;
+
+    private DateTime scoreTime;
+
+    private int score;
+    private bool calculateScore = false;
 
     private void OnEnable()
     {
         GameEventManager.Instance.AddListener<GameStateCompletedEvent>(OnGameStateCompleted);
         GameEventManager.Instance.AddListener<StartGameEvent>(OnGameStarted);
+        GameEventManager.Instance.AddListener<PlayerDestroyedEvent>(OnPlayerDead);
         GameEventManager.Instance.AddListener<RestartGameEvent>(OnGameRestarted);
+        GameEventManager.Instance.AddListener<EnemyKilledEvent>(OnEnemyKilled);
     }
 
     private void OnDisable()
     {
         GameEventManager.Instance.RemoveListener<GameStateCompletedEvent>(OnGameStateCompleted);
         GameEventManager.Instance.RemoveListener<StartGameEvent>(OnGameStarted);
+        GameEventManager.Instance.RemoveListener<PlayerDestroyedEvent>(OnPlayerDead);
         GameEventManager.Instance.RemoveListener<RestartGameEvent>(OnGameRestarted);
+        GameEventManager.Instance.RemoveListener<EnemyKilledEvent>(OnEnemyKilled);
     }
 
     void Update()
     {
         UpdateState();
+
+        if (calculateScore)
+        {
+            if ((DateTime.Now - scoreTime).TotalMilliseconds >= 1000)
+            {
+                score += scoreIncrementPerSecond;
+                scoreTime = DateTime.Now;
+
+                GameEventManager.Instance.TriggerAsyncEvent(new UpdateScoreEvent(score));
+                GameEventManager.Instance.TriggerAsyncEvent(new SecondPassed());
+            }
+        }
     }
 
     /// <summary>
@@ -87,11 +112,34 @@ public class GameManager : MonoBehaviour
     private void OnGameStarted(StartGameEvent e)
     {
         SetState(GameState.LevelGeneration);
+
+        score = 0;
+        calculateScore = true;
+        gameStartTime = DateTime.Now;
+        scoreTime = DateTime.Now;
     }
 
     private void OnGameRestarted(RestartGameEvent e)
     {
         SetState(GameState.LevelGeneration);
+
+        calculateScore = true;
+    }
+
+    private void OnPlayerDead(PlayerDestroyedEvent e)
+    {
+        deadTime = DateTime.Now;
+        calculateScore = false;
+    }
+
+    private void OnEnemyKilled(EnemyKilledEvent e)
+    {
+        if (calculateScore)
+        {
+            score += scoreIncrementForEnemyKill;
+
+            GameEventManager.Instance.TriggerAsyncEvent(new UpdateScoreEvent(score));
+        }
     }
 
 }

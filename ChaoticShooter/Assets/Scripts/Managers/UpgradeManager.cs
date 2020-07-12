@@ -30,12 +30,25 @@ public class UpgradeManager : MonoBehaviour
     {
         GameEventManager.Instance.AddListener<StartGameEvent>(OnGameStarted);
         GameEventManager.Instance.AddListener<EnemyKilledEvent>(OnEnemyKilled);
+        GameEventManager.Instance.AddListener<SecondPassed>(OnSecondPassed);
     }
 
     private void OnDisable()
     {
         GameEventManager.Instance.RemoveListener<StartGameEvent>(OnGameStarted);
         GameEventManager.Instance.RemoveListener<EnemyKilledEvent>(OnEnemyKilled);
+        GameEventManager.Instance.RemoveListener<SecondPassed>(OnSecondPassed);
+
+    }
+
+    private void OnSecondPassed(SecondPassed e)
+    {
+        currentXP += xpPerSecond;
+
+        if (currentLevel < xpPerLevel.Length)
+            GameEventManager.Instance.TriggerAsyncEvent(new UpdateXPEvent(currentXP, xpPerLevel[currentLevel]));
+
+        CheckForLevelUp();
     }
 
     private void OnGameStarted(StartGameEvent e)
@@ -57,6 +70,9 @@ public class UpgradeManager : MonoBehaviour
     private void OnEnemyKilled(EnemyKilledEvent e)
     {
         currentXP += xpForEnemyKill;
+
+        if(currentLevel < xpPerLevel.Length)
+            GameEventManager.Instance.TriggerAsyncEvent(new UpdateXPEvent(currentXP, xpPerLevel[currentLevel]));
 
         CheckForLevelUp();
     }
@@ -119,7 +135,7 @@ public class UpgradeManager : MonoBehaviour
                 break;
         }
 
-        GameEventManager.Instance.TriggerSyncEvent(new UpgradeGranted(behaviourType));
+        GameEventManager.Instance.TriggerSyncEvent(new UpgradeGranted(currentLevel, behaviourType));
     }
 
     private int GetRandomIndex()

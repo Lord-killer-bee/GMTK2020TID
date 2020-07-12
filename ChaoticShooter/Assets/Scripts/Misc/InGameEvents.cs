@@ -72,17 +72,46 @@ public class RestartGameEvent : GameEvent
 
 }
 
+public class UpdateScoreEvent : GameEvent
+{
+    public int score;
+
+    public UpdateScoreEvent(int score)
+    {
+        this.score = score;
+    }
+}
+
+public class UpdateXPEvent : GameEvent
+{
+    public int xp;
+    public int maxXP;
+
+    public UpdateXPEvent(int xp, int maxXP)
+    {
+        this.xp = xp;
+        this.maxXP = maxXP;
+    }
+}
+
 public class UpgradeGranted : GameEvent
 {
+    public int currentLevel;
     public PlayerBehaviourType behaviourType;
 
-    public UpgradeGranted(PlayerBehaviourType behaviourType)
+    public UpgradeGranted(int currentLevel, PlayerBehaviourType behaviourType)
     {
+        this.currentLevel = currentLevel;
         this.behaviourType = behaviourType;
     }
 }
 
 public class EnemyKilledEvent : GameEvent
+{
+
+}
+
+public class SecondPassed : GameEvent
 {
 
 }
