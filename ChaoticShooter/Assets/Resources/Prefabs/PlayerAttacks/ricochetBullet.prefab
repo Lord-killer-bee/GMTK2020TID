@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8402689733196842249}
   - component: {fileID: 8402689733196842244}
   - component: {fileID: 8402689733196842247}
-  - component: {fileID: 8402689733196842246}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: PlayerBullet
@@ -78,19 +77,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &8402689733196842246
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8402689733196842248}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8402689735209833631
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,8 +88,9 @@ GameObject:
   - component: {fileID: 8402689735209833628}
   - component: {fileID: 5705863144937977384}
   - component: {fileID: 2290524406302619799}
+  - component: {fileID: 6669657479387690710}
   m_Layer: 0
-  m_Name: triangleBullet
+  m_Name: ricochetBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,3 +139,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &6669657479387690710
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8402689735209833631}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.15
+  m_Center: {x: 0, y: 0, z: 0}

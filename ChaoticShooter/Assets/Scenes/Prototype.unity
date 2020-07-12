@@ -1469,6 +1469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camHeight: 10
+  cameraSmoothing: 0.08
   shakeAmount: 0.1
   decreaseFactor: 1
 --- !u!114 &534669907
@@ -2258,6 +2259,7 @@ MonoBehaviour:
     type: 3}
   circlePref: {fileID: 9053912154358594343, guid: ba41a77f04692da4899b41cd652a27e1,
     type: 3}
+  plusPref: {fileID: 621390193869541629, guid: 394740f94e04f544498ba599492afa29, type: 3}
   minPlayerSwitchTime: 8
   maxPlayerSwitchTime: 10
 --- !u!1 &1009582516

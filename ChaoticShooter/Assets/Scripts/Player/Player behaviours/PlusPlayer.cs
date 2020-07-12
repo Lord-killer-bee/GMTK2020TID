@@ -70,7 +70,7 @@ public class PlusPlayer : MonoBehaviour
         bullet.transform.position = firepoints[index].position;
         bullet.transform.forward = firepoints[index].forward;
         //bullet.transform.parent = transform;
-        bullet.GetComponent<RicochetBullet>().InitializeBullet(bulletSpeed, bulletDamage, GetComponent<PlayerController>().GetVelocity());
+        bullet.GetComponent<RicochetBullet>().InitializeBullet(bulletSpeed, bulletDamage, GetComponentInParent<PlayerController>().GetVelocity());
     }
 
     private void RandomizeFirepoints()

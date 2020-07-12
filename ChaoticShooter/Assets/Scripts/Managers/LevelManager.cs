@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject trianglePref;
     [SerializeField] private GameObject squarePref;
     [SerializeField] private GameObject circlePref;
+    [SerializeField] private GameObject plusPref;
 
     [SerializeField] private float minPlayerSwitchTime = 4f;
     [SerializeField] private float maxPlayerSwitchTime = 10f;
@@ -106,7 +107,7 @@ public class LevelManager : MonoBehaviour
     {
         PlayerBehaviourType behaviour = currentAvailablePlayers[currentPlayerIndex];
 
-        //behaviour = PlayerBehaviourType.Circle;
+        //behaviour = PlayerBehaviourType.Plus;
 
         Destroy(selectedPlayerBehaviour);
         GameObject pref = trianglePref;
@@ -123,6 +124,7 @@ public class LevelManager : MonoBehaviour
                 pref = circlePref;
                 break;
             case PlayerBehaviourType.Plus:
+                pref = plusPref;
                 break;
         }
 
@@ -141,6 +143,7 @@ public class LevelManager : MonoBehaviour
                 selectedPlayerBehaviour.GetComponentInChildren<CirclePlayer>().InitializeBehaviour();
                 break;
             case PlayerBehaviourType.Plus:
+                selectedPlayerBehaviour.GetComponentInChildren<PlusPlayer>().InitializeBehaviour();
                 break;
         }
 

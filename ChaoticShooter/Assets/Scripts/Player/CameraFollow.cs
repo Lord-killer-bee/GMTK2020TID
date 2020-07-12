@@ -7,6 +7,7 @@ using System;
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private float camHeight = 10f;
+    [SerializeField] private float cameraSmoothing = 0.05f;
     private Transform playerTransform;
     private bool playerMoveStarted = false;
 
@@ -57,7 +58,7 @@ public class CameraFollow : MonoBehaviour
             if (targetPosition.z > LevelManager.maxCamMarginZ)
                 targetPosition.z = LevelManager.maxCamMarginZ;
 
-            transform.position = targetPosition;
+            transform.position = Vector3.Lerp(transform.position, targetPosition, cameraSmoothing);
         }
 
         if (shakeTriggered)
@@ -83,6 +84,5 @@ public class CameraFollow : MonoBehaviour
         shakeDuration = 0.3f;
         originalPos = transform.localPosition;
         shakeTriggered = true;
-        Debug.Log("Camera shook");
     }
 }
