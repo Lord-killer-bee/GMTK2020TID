@@ -167,7 +167,7 @@ public class CirclePlayer : MonoBehaviour
 
         for (int i = 0; i < overlapColliders.Length; i++)
         {
-            if (overlapColliders[i].tag == GameConsts.ENEMY_TAG || overlapColliders[i].tag == GameConsts.ENEMY_BULLET_TAG)
+            if (overlapColliders[i].tag == GameConsts.ENEMY_TAG)
             {
                 Vector3 temp = overlapColliders[i].transform.position - pusherPoints[index].transform.position;
 
@@ -175,6 +175,16 @@ public class CirclePlayer : MonoBehaviour
                 {
                     //overlapColliders[i].GetComponentInChildren<Rigidbody>().AddExplosionForce(knockbackDistance, transform.position, arcRadius, 0, ForceMode.VelocityChange);
                     overlapColliders[i].GetComponentInChildren<Rigidbody>().AddForce(((temp) * knockbackDistance), ForceMode.VelocityChange);
+                }
+            }
+            else if(overlapColliders[i].tag == GameConsts.ENEMY_BULLET_TAG)
+            {
+                Vector3 temp = overlapColliders[i].transform.position - pusherPoints[index].transform.position;
+
+                if ((Vector3.Angle(temp, leftMargin) < arcAngle) && ((Vector3.Angle(temp, rightMargin) < arcAngle)))
+                {
+                    //overlapColliders[i].GetComponentInChildren<Rigidbody>().AddExplosionForce(knockbackDistance, transform.position, arcRadius, 0, ForceMode.VelocityChange);
+                    overlapColliders[i].GetComponentInChildren<EnemyBullet>().PropelBullet(temp.normalized);
                 }
             }
         }

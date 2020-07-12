@@ -143,6 +143,8 @@ MonoBehaviour:
   bulletPref: {fileID: 6547234415675224511, guid: 651204ae30aa9674ea69229b4193f61a,
     type: 3}
   firePoint: {fileID: 3010903659570067472}
+  bulletChargeEffect: {fileID: 4355750006844118710, guid: 3478b5218703a2143b3f891ca0aed2a6,
+    type: 3}
 --- !u!1001 &6579707199648394124
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -150,11 +152,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3010903660273410932}
     m_Modifications:
-    - target: {fileID: 7486188998413628709, guid: 3739c0c70a063f54d8a39783758bc789,
-        type: 3}
-      propertyPath: m_Name
-      value: Enem_Pent
-      objectReference: {fileID: 0}
     - target: {fileID: 1193474228746348857, guid: 3739c0c70a063f54d8a39783758bc789,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -209,6 +206,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486188998413628709, guid: 3739c0c70a063f54d8a39783758bc789,
+        type: 3}
+      propertyPath: m_Name
+      value: Enem_Pent
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3739c0c70a063f54d8a39783758bc789, type: 3}

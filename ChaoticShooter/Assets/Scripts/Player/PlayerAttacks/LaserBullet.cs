@@ -24,9 +24,13 @@ public class LaserBullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == GameConsts.ENEMY_TAG || collision.gameObject.tag == GameConsts.ENEMY_BULLET_TAG)
+        if(collision.gameObject.tag == GameConsts.ENEMY_TAG)
         {
             GameEventManager.Instance.TriggerAsyncEvent(new DamageEnemyEvent(collision.gameObject, laserDamage));
+        }
+        else if(collision.gameObject.tag == GameConsts.ENEMY_BULLET_TAG)
+        {
+            collision.gameObject.GetComponent<EnemyBullet>().DestroyWithEffect();
         }
     }
 }

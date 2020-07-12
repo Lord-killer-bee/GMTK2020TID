@@ -99,6 +99,8 @@ MonoBehaviour:
   bulletPref: {fileID: 6547234415675224511, guid: 651204ae30aa9674ea69229b4193f61a,
     type: 3}
   firePoint: {fileID: 4690593235643910222}
+  bulletChargeEffect: {fileID: 4355750006844118710, guid: 3478b5218703a2143b3f891ca0aed2a6,
+    type: 3}
 --- !u!1 &4690593235643910222
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,6 +23,7 @@ public class EnemyShoot : EnemyBaseBehaviour
     [SerializeField] private float bulletDamage;
     [SerializeField] GameObject bulletPref;
     [SerializeField] GameObject firePoint;
+    [SerializeField] GameObject bulletChargeEffect;
 
     private ShootingEnemyState currentState = ShootingEnemyState.Searching;
 
@@ -30,6 +31,7 @@ public class EnemyShoot : EnemyBaseBehaviour
 
     Collider[] overlapColliders;
     Vector3 fireDirection;
+    GameObject chargeEffectObj;
 
     private GameObject shootingTarget;
 
@@ -100,6 +102,11 @@ public class EnemyShoot : EnemyBaseBehaviour
         transform.LookAt(shootingTarget.transform);
 
         lockedOnTimeStamp = DateTime.Now;
+
+        chargeEffectObj = Instantiate(bulletChargeEffect, firePoint.transform);
+        chargeEffectObj.transform.localPosition = Vector3.zero;
+        chargeEffectObj.transform.localEulerAngles = Vector3.zero;
+
         SetState(ShootingEnemyState.ChargingUpShot);
     }
 
@@ -107,6 +114,7 @@ public class EnemyShoot : EnemyBaseBehaviour
     {
         if ((DateTime.Now - lockedOnTimeStamp).TotalMilliseconds >= bulletChargeTime * 1000f)
         {
+            Destroy(chargeEffectObj);
             FireBullet(shootingTarget);
 
             shotFiredTimeStamp = DateTime.Now;

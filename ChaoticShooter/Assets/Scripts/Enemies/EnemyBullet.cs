@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
+    [SerializeField] private GameObject destroyEffectPref;
+
     private bool bulletInitialized = false;
     private float bulletSpeed;
     private Vector3 fireDirection;
@@ -19,6 +21,12 @@ public class EnemyBullet : MonoBehaviour
     public void ReflectBullet(Vector3 normal)
     {
         transform.forward = Vector3.Reflect(transform.forward, normal);
+        reflected = true;
+    }
+
+    public void PropelBullet(Vector3 direction)
+    {
+        transform.forward = direction;
         reflected = true;
     }
 
@@ -73,5 +81,15 @@ public class EnemyBullet : MonoBehaviour
         {
             GameEventManager.Instance.TriggerSyncEvent(new DamageEnemyEvent(collision.gameObject, bulletDamage));
         }
+    }
+
+    public void DestroyWithEffect()
+    {
+        GameObject obj = Instantiate(destroyEffectPref);
+        obj.transform.position = transform.position;
+        obj.transform.localEulerAngles = new Vector3(-90, 0, 0);
+        obj.GetComponent<DestroyEffects>().InitiateDestroy();
+
+        Destroy(gameObject);
     }
 }
