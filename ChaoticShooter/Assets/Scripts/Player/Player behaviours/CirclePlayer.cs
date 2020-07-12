@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -135,6 +136,8 @@ public class CirclePlayer : MonoBehaviour
                         FireWave(i);
                     }
                 }
+
+                GameEventManager.Instance.TriggerAsyncEvent(new ShakeCameraEvent());
 
                 waitTime = DateTime.Now;
                 waitStarted = true;
