@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Core;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -98,15 +97,9 @@ public class PlayerController : MonoBehaviour
                 GameEventManager.Instance.TriggerSyncEvent(new PlayerDestroyedEvent(transform));
 
                 Destroy(gameObject);
-
-                restartCurrentScene();           
+                
+                         
             }
         }
     }
-
-    public void restartCurrentScene()
-     {
-         int scene = SceneManager.GetActiveScene().buildIndex;
-         SceneManager.LoadScene(scene, LoadSceneMode.Single);
-     }
 }
