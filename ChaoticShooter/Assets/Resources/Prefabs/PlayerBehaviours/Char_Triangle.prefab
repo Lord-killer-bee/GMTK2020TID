@@ -297,7 +297,7 @@ MonoBehaviour:
   laserLength: 5
   minFirepointSwitchTime: 1.5
   maxFirepointSwitchTime: 3
-  activeFirepoints: 2
+  activeFirepoints: 1
 --- !u!1 &6278576026450754508
 GameObject:
   m_ObjectHideFlags: 0

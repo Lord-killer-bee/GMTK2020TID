@@ -76,7 +76,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &4690593235276010285
 MonoBehaviour:
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e031fa5ee53432f43a0961b3ac8ccd38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 5
+  detectionRadius: 6
   bulletChargeTime: 1
   windupTime: 1
   rotationSpeed: 1

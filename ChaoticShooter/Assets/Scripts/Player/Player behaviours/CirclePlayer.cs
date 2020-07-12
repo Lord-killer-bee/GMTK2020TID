@@ -167,7 +167,7 @@ public class CirclePlayer : MonoBehaviour
 
         for (int i = 0; i < overlapColliders.Length; i++)
         {
-            if (overlapColliders[i].tag == GameConsts.ENEMY_TAG)
+            if (overlapColliders[i].tag == GameConsts.ENEMY_TAG || overlapColliders[i].tag == GameConsts.ENEMY_BULLET_TAG)
             {
                 Vector3 temp = overlapColliders[i].transform.position - pusherPoints[index].transform.position;
 
