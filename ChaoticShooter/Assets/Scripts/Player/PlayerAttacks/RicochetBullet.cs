@@ -71,7 +71,7 @@ public class RicochetBullet : MonoBehaviour
                 ReflectBullet(normal);
             }
         }
-        else if(collision.gameObject.tag == GameConsts.PLAYER_TAG || collision.gameObject.tag == GameConsts.ENEMY_TAG || collision.gameObject.tag == GameConsts.PLAYER_BULLET_TAG)
+        else if(collision.gameObject.tag == GameConsts.ENEMY_TAG || collision.gameObject.tag == GameConsts.PLAYER_BULLET_TAG)
         {
             Destroy(gameObject);
         }

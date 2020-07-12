@@ -42,14 +42,14 @@ public class PlayerController : MonoBehaviour
         float rh = Input.GetAxis("Horizontal"); 
         float rv= Input.GetAxis("Vertical");
 
-        //targetPosition = moveDirection * moveSpeed * Time.deltaTime;
-        transform.localPosition += new Vector3(rh, 0, rv) * moveSpeed * Time.fixedDeltaTime * 1 / Time.timeScale;
+        targetPosition = moveDirection * moveSpeed * Time.deltaTime;
+        /*transform.localPosition += new Vector3(rh, 0, rv) * moveSpeed * Time.deltaTime * 1 / Time.timeScale;
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
             slow = !slow;
             Time.timeScale = slow ? 0.5f : 1f;
-        }
+        }*/
 
         mouseInput = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
 
