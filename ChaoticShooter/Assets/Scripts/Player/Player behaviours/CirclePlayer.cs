@@ -24,7 +24,6 @@ public class CirclePlayer : MonoBehaviour
 
     [SerializeField] private float minPusherSwitchTime = 1.5f;
     [SerializeField] private float maxPusherSwitchTime = 3f;
-    [SerializeField] private int activePointsCount;
 
     private DateTime switchTime;
     private float currentSwitchTime;
@@ -45,7 +44,7 @@ public class CirclePlayer : MonoBehaviour
 
         pusherStatus = new bool[pusherPoints.Length];
 
-        for (int i = 0; i < activePointsCount; i++)
+        for (int i = 0; i < UpgradeManager.PushersCount; i++)
         {
             pusherStatus[i] = true;
         }

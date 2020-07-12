@@ -62,7 +62,27 @@ public class ShakeCameraEvent : GameEvent
 
 }
 
+public class StartGameEvent : GameEvent
+{
+
+}
+
 public class RestartGameEvent : GameEvent
+{
+
+}
+
+public class UpgradeGranted : GameEvent
+{
+    public PlayerBehaviourType behaviourType;
+
+    public UpgradeGranted(PlayerBehaviourType behaviourType)
+    {
+        this.behaviourType = behaviourType;
+    }
+}
+
+public class EnemyKilledEvent : GameEvent
 {
 
 }

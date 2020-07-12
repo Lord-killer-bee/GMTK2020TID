@@ -47,6 +47,8 @@ public class Enemy : MonoBehaviour
             obj.transform.forward = direction;
             obj.GetComponent<DestroyEffects>().InitiateDestroy();
 
+            GameEventManager.Instance.TriggerSyncEvent(new EnemyKilledEvent());
+
             Destroy(gameObject);
             return true;
         }

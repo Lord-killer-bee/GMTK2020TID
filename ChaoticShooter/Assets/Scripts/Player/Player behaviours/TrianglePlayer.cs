@@ -18,7 +18,6 @@ public class TrianglePlayer : MonoBehaviour
 
     [SerializeField] private float minFirepointSwitchTime = 1.5f;
     [SerializeField] private float maxFirepointSwitchTime = 3f;
-    [SerializeField] private int activeFirepoints = 1;
 
 
     private PlayerBehaviourType behaviourType;
@@ -44,7 +43,7 @@ public class TrianglePlayer : MonoBehaviour
         behaviourInitialized = true;
 
         firepointsStatus = new bool[firepoints.Length];
-        for (int i = 0; i < activeFirepoints; i++)
+        for (int i = 0; i < UpgradeManager.LaserGunsCount; i++)
         {
             firepointsStatus[i] = true;
             firepoints[i].gameObject.SetActive(true);
@@ -163,7 +162,7 @@ public class TrianglePlayer : MonoBehaviour
     {
         firepointsStatus = new bool[firepoints.Length];
 
-        for (int i = activeFirepoints - 1; i >= 0; i--)
+        for (int i = UpgradeManager.LaserGunsCount - 1; i >= 0; i--)
         {
             firepointsStatus[i] = true;
         }

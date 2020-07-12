@@ -15,7 +15,6 @@ public class SquarePlayer : MonoBehaviour
 
     [SerializeField] private float minShieldSwitchTime = 1.5f;
     [SerializeField] private float maxShieldSwitchTime = 3f;
-    [SerializeField] private int activeShields = 1;
 
     private List<GameObject> chargeEffects = new List<GameObject>();
 
@@ -32,7 +31,7 @@ public class SquarePlayer : MonoBehaviour
         behaviourInitialized = true;
 
         reflectorsStatus = new bool[reflectors.Length];
-        for (int i = 0; i < activeShields; i++)
+        for (int i = 0; i < UpgradeManager.ShieldsCount; i++)
         {
             reflectorsStatus[i] = true;
         }

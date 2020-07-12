@@ -11,18 +11,15 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         GameEventManager.Instance.AddListener<GameStateCompletedEvent>(OnGameStateCompleted);
+        GameEventManager.Instance.AddListener<StartGameEvent>(OnGameStarted);
         GameEventManager.Instance.AddListener<RestartGameEvent>(OnGameRestarted);
     }
 
     private void OnDisable()
     {
         GameEventManager.Instance.RemoveListener<GameStateCompletedEvent>(OnGameStateCompleted);
+        GameEventManager.Instance.RemoveListener<StartGameEvent>(OnGameStarted);
         GameEventManager.Instance.RemoveListener<RestartGameEvent>(OnGameRestarted);
-    }
-
-    void Start()
-    {
-        SetState(GameState.LevelGeneration);
     }
 
     void Update()
@@ -85,6 +82,11 @@ public class GameManager : MonoBehaviour
             case GameState.LevelFailed:
                 break;
         }
+    }
+
+    private void OnGameStarted(StartGameEvent e)
+    {
+        SetState(GameState.LevelGeneration);
     }
 
     private void OnGameRestarted(RestartGameEvent e)

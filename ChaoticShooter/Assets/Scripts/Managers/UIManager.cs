@@ -6,6 +6,8 @@ using System;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private GameObject mainMenuPanel;
+    [SerializeField] private GameObject infoPanel;
     [SerializeField] private GameObject gameOverPanel;
 
     private void OnEnable()
@@ -42,6 +44,22 @@ public class UIManager : MonoBehaviour
     {
         GameEventManager.Instance.TriggerSyncEvent(new RestartGameEvent());
         gameOverPanel.SetActive(false);
+    }
+
+    public void StartGame()
+    {
+        GameEventManager.Instance.TriggerSyncEvent(new StartGameEvent());
+        mainMenuPanel.SetActive(false);
+    }
+
+    public void OpenInfoPanel()
+    {
+        infoPanel.SetActive(true);
+    }
+
+    public void CloseInfoPanel()
+    {
+        infoPanel.SetActive(false);
     }
 
     #endregion

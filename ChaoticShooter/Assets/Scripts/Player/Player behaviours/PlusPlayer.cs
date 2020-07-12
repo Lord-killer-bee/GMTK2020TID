@@ -13,7 +13,6 @@ public class PlusPlayer : MonoBehaviour
 
     [SerializeField] private float minFirepointSwitchTime = 1.5f;
     [SerializeField] private float maxFirepointSwitchTime = 3f;
-    [SerializeField] private int activeFirepoints = 1;
 
     private PlayerBehaviourType behaviourType;
     private bool behaviourInitialized = false;
@@ -32,7 +31,7 @@ public class PlusPlayer : MonoBehaviour
         behaviourInitialized = true;
 
         firepointsStatus = new bool[firepoints.Length];
-        for (int i = 0; i < activeFirepoints; i++)
+        for (int i = 0; i < UpgradeManager.RicochetGunsCount; i++)
         {
             firepointsStatus[i] = true;
         }
@@ -80,7 +79,7 @@ public class PlusPlayer : MonoBehaviour
     {
         firepointsStatus = new bool[firepoints.Length];
 
-        for (int i = activeFirepoints - 1; i >= 0; i--)
+        for (int i = UpgradeManager.RicochetGunsCount - 1; i >= 0; i--)
         {
             firepointsStatus[i] = true;
         }
